@@ -271,3 +271,267 @@
 
     .section-grid {
       display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+
+    .section-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75,85,99,0.8);
+      padding: 0.25rem 0.7rem;
+      color: var(--text-light);
+      background: rgba(15,23,42,0.8);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .card {
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: linear-gradient(to bottom, rgba(15,23,42,0.9), rgba(3,7,18,0.95));
+      padding: 0.9rem;
+    }
+
+    .card h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: var(--gold-soft);
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+    }
+
+    .contact-box {
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: linear-gradient(to bottom, rgba(15,23,42,0.9), rgba(3,7,18,0.95));
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contact-box strong {
+      color: var(--gold);
+    }
+
+    form {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(3,7,18,0.9);
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(31,41,55,0.9);
+      padding: 1rem 1.25rem 1.5rem;
+      margin-top: auto;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.9);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .footer-inner span strong {
+      color: var(--gold-soft);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-main h2 {
+        font-size: 1.8rem;
+      }
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header>
+      <div class="nav">
+        <div class="nav-left">
+          <div class="logo-wrap">
+            <img src="file_00000000bfd881f6a817a0bbc6e07f25.png" alt="Nationwide Dispatching Logo">
+          </div>
+          <div class="brand-text">
+            <h1>NATIONWIDE DISPATCHING</h1>
+            <span>Professional Truck Dispatch Services Across The United States</span>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+          <a href="#dispatcher-form">Become A Client</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main>
+      <section class="hero">
+        <div class="hero-main">
+          <h2><span>Nationwide</span> Dispatching</h2>
+          <p class="hero-tagline">
+            We partner with owner‑operators and carriers to keep your trucks loaded, your routes optimized, and your business moving forward—coast to coast.
+          </p>
+
+          <div class="hero-badges">
+            <div class="badge">24/7 Support</div>
+            <div class="badge">Nationwide Coverage</div>
+            <div class="badge">Dedicated Dispatcher</div>
+          </div>
+
+          <div class="hero-cta">
+            <button class="btn-primary" onclick="document.getElementById('dispatcher-form').scrollIntoView({behavior:'smooth'})">
+              Start Dispatching
+            </button>
+            <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              Contact Us
+            </button>
+          </div>
+
+          <p class="hero-contact">
+            Email: <strong>nationwidedispatching@outlook.com</strong><br>
+            Phone: <strong>619-856-9888</strong>
+          </p>
+        </div>
+
+        <div class="hero-logo-card">
+          <img src="file_00000000bfd881f6a817a0bbc6e07f25.png" alt="Nationwide Dispatching Emblem">
+          <h3>Premium Dispatching Brand</h3>
+          <p>
+            Your logo already tells the story: professional, nationwide, and built for serious trucking operations. This site matches that energy.
+          </p>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section">
+        <div class="section-header">
+          <div class="section-label">About Us</div>
+          <div class="section-title">Built For Owner‑Operators & Carriers</div>
+        </div>
+
+        <div class="section-grid">
+          <div class="section-text">
+            <p>
+              Nationwide Dispatching is focused on one thing: keeping your trucks profitable and your schedule predictable.
+              We work with independent owner‑operators and small to mid‑size carriers who want a reliable partner handling
+              the back‑office work—so you can stay focused on the road.
+            </p>
+            <p style="margin-top:0.6rem;">
+              From lane planning and rate negotiation to paperwork and check‑calls, we manage the details that keep your
+              operation running smoothly. You get a dedicated dispatcher who knows your preferences, your equipment, and
+              your goals.
+            </p>
+            <div class="pill-list">
+              <div class="pill">Dry Van</div>
+              <div class="pill">Reefer</div>
+              <div class="pill">Flatbed</div>
+              <div class="pill">Power‑Only</div>
+              <div class="pill">Nationwide Lanes</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <h4>Why Carriers Choose Us</h4>
+              <p>
+                We treat every truck like it’s our own. That means smart routing, fair rates, and clear communication.
+                You’ll always know where you’re going, what you’re hauling, and what you’re getting paid.
+              </p>
+            </div>
+            <div class="card" style="margin-top:0.75rem;">
+              <h4>Our Promise</h4>
+              <p>
+                No hidden
