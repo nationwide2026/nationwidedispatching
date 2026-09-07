@@ -91,10 +91,23 @@
     .hero img {
       width: 100%;
       max-width: 350px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 2px solid var(--gold);
       display: block;
       margin: auto;
+    }
+
+    .hero .cta-button {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--gold);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     section {
@@ -168,6 +181,21 @@
       margin-top: 40px;
       color: var(--muted);
     }
+
+    /* Extra mobile tweaks */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav a {
+        margin-left: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -195,19 +223,11 @@
     <p>Professional Truck Dispatch Services Across The United States</p>
     <p><strong>Email:</strong> nationwidedispatching@outlook.com</p>
     <p><strong>Phone:</strong> 619-856-9888</p>
+    <a href="#book-call" class="cta-button">Schedule a Call</a>
   </div>
 
-  <!-- HERO LOGO CARD -->
-<div class="hero-logo-card">
-  <img src="https://github.com/nationwide2026/nationwidedispatching/blob/main/Copilot_20260907_055956.png?raw=true" 
-       alt="Nationwide Dispatching Logo" 
-       style="width:100%;max-width:350px;border-radius:12px;border:2px solid #f5c451;">
-  <h3>Premium Dispatching Brand</h3>
-  <p>
-    Your operation deserves a dispatch partner that looks and works as serious as you do. 
-    This brand and platform are built for professional trucking businesses that want consistency, clarity, and growth.
-  </p>
-</div>
+  <img src="https://github.com/nationwide2026/nationwidedispatching/blob/main/Copilot_20260907_055956.png?raw=true"
+       alt="Nationwide Dispatching Logo">
 </div>
 
 <section id="about">
@@ -312,6 +332,140 @@
       <textarea placeholder="Additional Notes"></textarea>
       <button type="button">Submit</button>
       <p>This form is for display only. To start dispatching, email <strong>nationwidedispatching@outlook.com</strong>.</p>
+    </form>
+  </div>
+</section>
+
+<!-- NEW ADD-ONS BELOW CURRENT SITE -->
+
+<section id="book-call">
+  <h2>Schedule a Call</h2>
+  <div class="card">
+    <p>Ready to talk about your trucks, lanes, and revenue goals? Schedule a call and we’ll walk you through how Nationwide Dispatching can support your operation.</p>
+    <p><strong>Phone:</strong> 619-856-9888</p>
+    <p><strong>Email:</strong> nationwidedispatching@outlook.com</p>
+    <button type="button">Request a Call by Email</button>
+    <p style="margin-top:10px;">Use the button above or email us directly with your preferred time and we’ll confirm.</p>
+  </div>
+</section>
+
+<section id="carrier-packet">
+  <h2>Carrier Packet</h2>
+  <div class="card">
+    <p>We provide a complete carrier packet so you can onboard quickly and start running loads without delays.</p>
+    <ul style="color:var(--muted);">
+      <li>W-9</li>
+      <li>Dispatch Agreement</li>
+      <li>MC Authority</li>
+      <li>Certificate of Insurance (COI)</li>
+      <li>Notice of Assignment (NOA)</li>
+      <li>Direct Deposit Form</li>
+    </ul>
+    <p>Upload your documents to your preferred storage or email us to receive the full packet.</p>
+  </div>
+</section>
+
+<section id="why-us">
+  <h2>Why Choose Nationwide Dispatching</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>High-Paying Loads</h3>
+      <p>We focus on quality freight, not just filling your calendar. Our goal is to increase your weekly revenue.</p>
+    </div>
+    <div class="card">
+      <h3>No Forced Dispatch</h3>
+      <p>You decide where you want to run. We respect your preferences and business model.</p>
+    </div>
+    <div class="card">
+      <h3>Dedicated Dispatcher</h3>
+      <p>Work with one dispatcher who learns your lanes, style, and goals.</p>
+    </div>
+    <div class="card">
+      <h3>24/7 Support</h3>
+      <p>We’re available when you’re on the road, not just during office hours.</p>
+    </div>
+    <div class="card">
+      <h3>Transparent Pricing</h3>
+      <p>No hidden fees, no surprises. Clear percentage-based or custom fleet pricing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2>Testimonials</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Owner-Operator</h3>
+      <p>“Nationwide Dispatching keeps my truck moving with solid rates and lanes I actually like running.”</p>
+    </div>
+    <div class="card">
+      <h3>Small Fleet</h3>
+      <p>“They handle the back-office and dispatch so I can focus on drivers and equipment.”</p>
+    </div>
+    <div class="card">
+      <h3>New Authority</h3>
+      <p>“They helped me get started, explained everything clearly, and found loads that fit my situation.”</p>
+    </div>
+  </div>
+</section>
+
+<section id="coverage-map">
+  <h2>Service Areas & Coverage</h2>
+  <div class="card">
+    <p>We dispatch across the continental United States with a focus on profitable, consistent lanes.</p>
+    <p><strong>Primary Regions:</strong> Midwest, Southeast, Southwest, Northeast.</p>
+    <p><strong>Equipment:</strong> Dry Van, Reefer, Flatbed, Power-Only.</p>
+    <p>We can tailor lanes to your preferences and avoid regions you don’t want to run.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="card">
+    <h3>How do I sign up?</h3>
+    <p>Use the “Become a Client” form above or email us at <strong>nationwidedispatching@outlook.com</strong> with your company details.</p>
+
+    <h3>What equipment do you dispatch?</h3>
+    <p>We primarily dispatch Dry Van, Reefer, Flatbed, and Power-Only units.</p>
+
+    <h3>Do you offer 24/7 support?</h3>
+    <p>Yes, we are available around the clock to support drivers on the road.</p>
+
+    <h3>How are your rates structured?</h3>
+    <p>We offer percentage-based pricing per load and custom fleet pricing for carriers with multiple trucks.</p>
+
+    <h3>Do you work with new authorities?</h3>
+    <p>Yes, we have a New Authority Program designed to help new carriers get started safely and profitably.</p>
+  </div>
+</section>
+
+<section id="load-boards">
+  <h2>Load Boards & Broker Partners</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>DAT & Truckstop</h3>
+      <p>We actively source freight from major load boards like DAT and Truckstop.</p>
+    </div>
+    <div class="card">
+      <h3>Amazon Relay & Uber Freight</h3>
+      <p>We can help you access dedicated and spot freight through digital platforms.</p>
+    </div>
+    <div class="card">
+      <h3>Major Brokers</h3>
+      <p>We work with reputable brokers such as TQL, C.H. Robinson, and others.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dispatcher-login">
+  <h2>Dispatcher Login (Coming Soon)</h2>
+  <div class="card">
+    <p>This area will be reserved for internal dispatchers to manage loads, carriers, and documents.</p>
+    <form>
+      <input type="text" placeholder="Dispatcher Username">
+      <input type="password" placeholder="Password">
+      <button type="button">Login (Disabled)</button>
+      <p style="margin-top:10px;">Login functionality is planned for future expansion of Nationwide Dispatching.</p>
     </form>
   </div>
 </section>
