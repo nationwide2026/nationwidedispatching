@@ -10,14 +10,14 @@
       --gold-soft: #e3b34a;
       --text: #ffffff;
       --muted: #b3b3b3;
-      --bg: #0a0a0a;
-      --bg2: #111;
-      --border: #333;
+      --bg: #000000;
+      --bg2: #111111;
+      --border: #333333;
     }
 
     body {
       margin: 0;
-      background: #000;
+      background: var(--bg);
       color: var(--text);
       font-family: Arial, sans-serif;
       scroll-behavior: smooth;
@@ -182,7 +182,6 @@
       color: var(--muted);
     }
 
-    /* Extra mobile tweaks */
     @media (max-width: 768px) {
       .hero {
         grid-template-columns: 1fr;
@@ -213,6 +212,7 @@
       <a href="#coverage">Coverage</a>
       <a href="#contact">Contact</a>
       <a href="#form">Become a Client</a>
+      <a href="#book-call">Book a Call</a>
     </div>
   </nav>
 </header>
@@ -302,50 +302,73 @@
 <section id="contact">
   <h2>Contact Us</h2>
   <div class="card">
-    <form>
-      <input type="text" placeholder="Full Name">
-      <input type="email" placeholder="Email">
-      <input type="tel" placeholder="Phone Number">
-      <textarea placeholder="Your Message"></textarea>
-      <button type="button">Send Message</button>
-      <p>This form is for display only. To contact us, email <strong>nationwidedispatching@outlook.com</strong>.</p>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
+      <!-- Optional redirect:
+      <input type="hidden" name="redirect" value="https://nationwide2026.github.io/nationwidedispatching/success.html">
+      -->
+
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
     </form>
+    <p style="margin-top:10px;">You can also email us directly at <strong>nationwidedispatching@outlook.com</strong>.</p>
   </div>
 </section>
 
 <section id="form">
   <h2>Become a Client</h2>
   <div class="card">
-    <form>
-      <input type="text" placeholder="Full Name">
-      <input type="text" placeholder="Company Name">
-      <input type="email" placeholder="Email">
-      <input type="tel" placeholder="Phone Number">
-      <select>
-        <option>Dry Van</option>
-        <option>Reefer</option>
-        <option>Flatbed</option>
-        <option>Power-Only</option>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
+      <!-- Optional redirect:
+      <input type="hidden" name="redirect" value="https://nationwide2026.github.io/nationwidedispatching/success.html">
+      -->
+
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="company" placeholder="Company Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+
+      <select name="equipment" required>
+        <option value="">Select Equipment Type</option>
+        <option value="Dry Van">Dry Van</option>
+        <option value="Reefer">Reefer</option>
+        <option value="Flatbed">Flatbed</option>
+        <option value="Power-Only">Power-Only</option>
       </select>
-      <input type="number" placeholder="Number of Trucks">
-      <textarea placeholder="Preferred Lanes / States"></textarea>
-      <textarea placeholder="Additional Notes"></textarea>
-      <button type="button">Submit</button>
-      <p>This form is for display only. To start dispatching, email <strong>nationwidedispatching@outlook.com</strong>.</p>
+
+      <input type="number" name="trucks" placeholder="Number of Trucks" required>
+      <textarea name="lanes" placeholder="Preferred Lanes / States"></textarea>
+      <textarea name="notes" placeholder="Additional Notes"></textarea>
+
+      <button type="submit">Submit</button>
     </form>
+    <p style="margin-top:10px;">Once submitted, we will review your information and contact you to finalize onboarding.</p>
   </div>
 </section>
-
-<!-- NEW ADD-ONS BELOW CURRENT SITE -->
 
 <section id="book-call">
   <h2>Schedule a Call</h2>
   <div class="card">
-    <p>Ready to talk about your trucks, lanes, and revenue goals? Schedule a call and we’ll walk you through how Nationwide Dispatching can support your operation.</p>
-    <p><strong>Phone:</strong> 619-856-9888</p>
-    <p><strong>Email:</strong> nationwidedispatching@outlook.com</p>
-    <button type="button">Request a Call by Email</button>
-    <p style="margin-top:10px;">Use the button above or email us directly with your preferred time and we’ll confirm.</p>
+    <p>Ready to talk about your trucks, lanes, and revenue goals? Use the form below to request a call and we’ll reach out to confirm a time.</p>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
+      <!-- Optional redirect:
+      <input type="hidden" name="redirect" value="https://nationwide2026.github.io/nationwidedispatching/success.html">
+      -->
+
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <textarea name="time" placeholder="Preferred Call Time (Date, Time, Time Zone)" required></textarea>
+
+      <button type="submit">Request Call</button>
+    </form>
+    <p style="margin-top:10px;">You can also call us directly at <strong>619-856-9888</strong>.</p>
   </div>
 </section>
 
@@ -361,7 +384,7 @@
       <li>Notice of Assignment (NOA)</li>
       <li>Direct Deposit Form</li>
     </ul>
-    <p>Upload your documents to your preferred storage or email us to receive the full packet.</p>
+    <p>To receive the full packet, contact us via the forms above or email <strong>nationwidedispatching@outlook.com</strong>.</p>
   </div>
 </section>
 
@@ -462,17 +485,16 @@
   <div class="card">
     <p>This area will be reserved for internal dispatchers to manage loads, carriers, and documents.</p>
     <form>
-      <input type="text" placeholder="Dispatcher Username">
-      <input type="password" placeholder="Password">
-      <button type="button">Login (Disabled)</button>
+      <input type="text" placeholder="Dispatcher Username" disabled>
+      <input type="password" placeholder="Password" disabled>
+      <button type="button" disabled>Login (Disabled)</button>
       <p style="margin-top:10px;">Login functionality is planned for future expansion of Nationwide Dispatching.</p>
     </form>
   </div>
 </section>
 
 <footer>
-  © Nationwide Dispatching — Professional Truck Dispatch Services  
-  <br>
+  © Nationwide Dispatching — Professional Truck Dispatch Services<br>
   Contact: nationwidedispatching@outlook.com · 619-856-9888
 </footer>
 
