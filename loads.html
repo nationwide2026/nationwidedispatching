@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Loads – Nationwide Dispatching</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script src="firebase-config.js"></script>
+<script src="auth.js"></script>
+</head>
+
+<body class="flex bg-gray-100">
+
+<!-- Sidebar -->
+<div class="w-64 bg-blue-800 text-white min-h-screen p-6">
+    <h2 class="text-2xl font-bold mb-8">Nationwide Dispatching</h2>
+
+    <a href="dashboard.html" class="block py-3 hover:bg-blue-700 rounded">Dashboard</a>
+    <a href="loads.html" class="block py-3 hover:bg-blue-700 rounded bg-blue-700">Loads</a>
+    <a href="carriers.html" class="block py-3 hover:bg-blue-700 rounded">Carriers</a>
+    <a href="documents.html" class="block py-3 hover:bg-blue-700 rounded">Documents</a>
+    <a href="admin.html" class="block py-3 hover:bg-blue-700 rounded">Admin</a>
+
+    <button onclick="logout()" class="mt-10 bg-red-600 w-full py-3 rounded hover:bg-red-700">
+        Logout
+    </button>
+</div>
+
+<!-- Main Content -->
+<div class="flex-1 p-10">
+    <h1 class="text-3xl font-bold mb-6">Loads</h1>
+
+    <!-- Loads Table -->
+    <div class="bg-white p-6 rounded shadow">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="border-b">
+                    <th class="py-3">Load #</th>
+                    <th class="py-3">Pickup</th>
+                    <th class="py-3">Delivery</th>
+                    <th class="py-3">Carrier</th>
+                    <th class="py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody id="loadsTable"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Load data from Firestore
+const db = firebase.firestore();
+
+db.collection("loads").onSnapshot(snapshot => {
+    const table = document.getElementById("loadsTable");
+    table.innerHTML = "";
+
+    snapshot.forEach(doc => {
+        const load = doc.data();
+
+        const row = `
+            <tr class="border-b">
+                <td class="py-3">${load.loadNumber || "N/A"}</td>
+                <td class="py-3">${load.pickup || "N/A"}</td>
+                <td class="py-3">${load.delivery || "N/A"}</td>
+                <td class="py-3">${load.carrier || "N/A"}</td>
+                <td class="py-3">${load.status || "Pending"}</td>
+            </tr>
+        `;
+
+        table.innerHTML += row;
+    });
+});
+</script>
+
+</body>
+</html>
