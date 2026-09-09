@@ -1,4 +1,4 @@
-const firebaseConfig = {
+const firebaseConfig = { }␣
   apiKey: "AIzaSyA3FJ8K9EXAMPLEKEY",
   authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
   projectId: "nationwide-dispatching-7b346",
