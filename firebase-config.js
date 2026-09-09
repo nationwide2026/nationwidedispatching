@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyXXXXXXX",
+  apiKey: "AIzaSyA....",
   authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
   projectId: "nationwide-dispatching-7b346",
   storageBucket: "nationwide-dispatching-7b346.appspot.com",
