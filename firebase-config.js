@@ -1,8 +1,8 @@
 const firebaseConfig = {
-  apiKey: "...",
-  authDomain: "...",
+  apiKey: "YOUR_KEY",
+  authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
   projectId: "nationwide-dispatching-7b346",
   storageBucket: "nationwide-dispatching-7b346.firebasestorage.app",
-  messagingSenderId: "...",
-  appId: "..."
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
 };
