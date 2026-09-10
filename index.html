@@ -1,458 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Nationwide Dispatching | Professional Truck Dispatch Services</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --gold: #f5c451;
-      --gold-soft: #e3b34a;
-      --text: #ffffff;
-      --muted: #b3b3b3;
-      --bg: #000000;
-      --bg2: #111111;
-      --border: #333333;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- 3D LED Theme -->
+  <style>
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-      scroll-behavior: smooth;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1a1a1a 0%, #050505 55%, #000 100%);
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    .glow-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 180, 0.15) 0, transparent 50%),
+        radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(0, 140, 255, 0.18) 0, transparent 55%);
+      z-index: -1;
     }
 
     header {
-      background: rgba(0,0,0,0.9);
-      padding: 20px;
-      border-bottom: 2px solid var(--gold);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav {
+      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: auto;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(10px);
     }
 
-    nav .brand {
-      font-size: 20px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd700 0%, #b8860b 40%, #111 100%);
+      box-shadow:
+        0 0 18px rgba(255, 215, 0, 0.8),
+        inset 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .logo-text {
+      font-size: 22px;
       font-weight: bold;
-      color: var(--gold);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    nav .brand span {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 3px;
+      color: #ffd700;
+      letter-spacing: 0.05em;
     }
 
     nav a {
-      color: var(--gold);
       margin-left: 20px;
+      color: #f5f5f5;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-      text-transform: uppercase;
+      font-size: 16px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: 0.25s;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-color: rgba(255, 215, 0, 0.6);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+      color: #ffd700;
     }
 
     .hero {
-      max-width: 1200px;
-      margin: auto;
-      padding: 50px 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
+      text-align: center;
+      padding: 120px 20px 80px;
     }
 
-    .hero h1 {
-      font-size: 42px;
-      color: var(--gold);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    .hero-title {
+      font-size: 48px;
+      color: #ffd700;
+      text-shadow:
+        0 0 18px rgba(255, 215, 0, 0.9),
+        0 0 6px rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
     }
 
-    .hero p {
-      font-size: 18px;
-      color: var(--muted);
-      margin: 10px 0;
+    .hero-sub {
+      font-size: 20px;
+      color: #ccc;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
     }
 
-    .hero img {
-      width: 100%;
-      max-width: 350px;
-      border-radius: 12px;
-      border: 2px solid var(--gold);
-      display: block;
-      margin: auto;
-    }
-
-    .hero .cta-button {
-      display: inline-block;
-      margin-top: 20px;
-      background: var(--gold);
-      color: #000;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    h2 {
-      color: var(--gold);
-      margin-bottom: 10px;
-      font-size: 28px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .card {
-      background: var(--bg2);
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    .card h3 {
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
       gap: 20px;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
-    input, textarea, select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      background: #000;
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    button {
-      background: var(--gold);
+    .cta-buttons a {
+      padding: 14px 26px;
+      font-size: 18px;
+      border-radius: 999px;
+      text-decoration: none;
       color: #000;
-      padding: 12px 20px;
-      border: none;
-      margin-top: 15px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
+      background: radial-gradient(circle at top, #ffd700 0%, #ffb000 40%, #8b6508 100%);
+      box-shadow:
+        0 10px 18px rgba(0, 0, 0, 0.9),
+        0 0 16px rgba(255, 215, 0, 0.8);
+      transition: 0.25s;
+    }
+
+    .cta-buttons a:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 14px 24px rgba(0, 0, 0, 0.95),
+        0 0 20px rgba(255, 215, 0, 1);
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background: #000;
-      border-top: 2px solid var(--gold);
-      margin-top: 40px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      nav {
-        flex-direction: column;
-        gap: 10px;
-      }
-      nav a {
-        margin-left: 10px;
-      }
+      padding: 30px;
+      color: #777;
+      font-size: 14px;
+      margin-top: 80px;
     }
   </style>
 </head>
+
 <body>
+  <div class="glow-bg"></div>
 
-<header>
-  <nav>
-    <div class="brand">
-      NATIONWIDE DISPATCHING
-      <span>Professional Truck Dispatch Services Across The United States</span>
+  <header>
+    <div class="logo">
+      <div class="logo-circle"></div>
+      <div class="logo-text">Nationwide Dispatching</div>
     </div>
-    <div>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#coverage">Coverage</a>
-      <a href="#contact">Contact</a>
-      <a href="#form">Become a Client</a>
-      <a href="#book-call">Book a Call</a>
+
+    <nav>
+      <a href="dashboard.html">ELD Dashboard</a>
+      <a href="loads.html">Loads</a>
+      <a href="carriers.html">Carriers</a>
+      <a href="documents.html">Documents</a>
+      <a href="admin.html">Admin</a>
+
+      <!-- ⭐ FIXED: Correct working login link -->
       <a href="dispatcher-login.html">Dispatcher Login</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-title">Professional Truck Dispatch Services</div>
+    <div class="hero-sub">
+      Nationwide Dispatching provides reliable, efficient, and real‑time dispatch solutions for carriers and drivers across the country.  
+      Access your ELD dashboard, manage loads, and stay connected with your dispatcher — all in one powerful system.
     </div>
-  </nav>
-</header>
 
-<div class="hero">
-  <div>
-    <h1>Nationwide Dispatching</h1>
-    <p>Professional Truck Dispatch Services Across The United States</p>
-    <p><strong>Email:</strong> nationwidedispatching@outlook.com</p>
-    <p><strong>Phone:</strong> 619-856-9888</p>
-    <a href="#book-call" class="cta-button">Schedule a Call</a>
-  </div>
-
-  <img src="https://github.com/nationwide2026/nationwidedispatching/blob/main/Copilot_20260907_055956.png?raw=true"
-       alt="Nationwide Dispatching Logo">
-</div>
-
-<section id="about">
-  <h2>About Us</h2>
-  <div class="card">
-    <p>Nationwide Dispatching provides professional dispatch services for owner-operators and carriers across the United States. We focus on maximizing your profits, minimizing downtime, and keeping your trucks moving with reliable loads and optimized routes.</p>
-  </div>
-</section>
-
-<section id="services">
-  <h2>Our Services</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Load Booking</h3>
-      <p>We find and secure high-paying loads that match your equipment and preferred lanes.</p>
+    <div class="cta-buttons">
+      <a href="dispatcher-login.html">Dispatcher Login</a>
+      <a href="dashboard.html">Driver Dashboard</a>
     </div>
-    <div class="card">
-      <h3>Rate Negotiation</h3>
-      <p>We negotiate the best rates with brokers and shippers to maximize your weekly revenue.</p>
-    </div>
-    <div class="card">
-      <h3>Route Optimization</h3>
-      <p>We plan efficient routes to reduce deadhead miles and increase profitability.</p>
-    </div>
-    <div class="card">
-      <h3>Paperwork Handling</h3>
-      <p>We manage rate cons, BOLs, PODs, and all back-office paperwork.</p>
-    </div>
-    <div class="card">
-      <h3>24/7 Support</h3>
-      <p>We are available around the clock to assist with any issues on the road.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="pricing">
-  <h2>Pricing</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Standard Dispatch</h3>
-      <p>Percentage-based pricing per load. Ideal for owner-operators and small carriers.</p>
-    </div>
-    <div class="card">
-      <h3>Fleet Dispatch</h3>
-      <p>Custom pricing for carriers with multiple trucks needing full dispatch support.</p>
-    </div>
-    <div class="card">
-      <h3>New Authority Program</h3>
-      <p>Special support for new carriers entering the industry.</p>
-    </div>
-  </div>
-</section>
-
-<section id="coverage">
-  <h2>Coverage</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Nationwide Dispatching</h3>
-      <p>We dispatch across all 48 continental states with flexible lane options.</p>
-    </div>
-    <div class="card">
-      <h3>Equipment Types</h3>
-      <p>Dry Van, Reefer, Flatbed, Power-Only, and more.</p>
-    </div>
-    <div class="card">
-      <h3>Preferred Lanes</h3>
-      <p>We work with your preferred regions and avoid areas you don’t want to run.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact Us</h2>
-  <div class="card">
-    <form action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
-
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-
-      <button type="submit">Send Message</button>
-    </form>
-    <p style="margin-top:10px;">You can also email us directly at <strong>nationwidedispatching@outlook.com</strong>.</p>
-  </div>
-</section>
-
-<section id="form">
-  <h2>Become a Client</h2>
-  <div class="card">
-    <form action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
-
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="text" name="company" placeholder="Company Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-
-      <select name="equipment" required>
-        <option value="">Select Equipment Type</option>
-        <option value="Dry Van">Dry Van</option>
-        <option value="Reefer">Reefer</option>
-        <option value="Flatbed">Flatbed</option>
-        <option value="Power-Only">Power-Only</option>
-      </select>
-
-      <input type="number" name="trucks" placeholder="Number of Trucks" required>
-      <textarea name="lanes" placeholder="Preferred Lanes / States"></textarea>
-      <textarea name="notes" placeholder="Additional Notes"></textarea>
-
-      <button type="submit">Submit</button>
-    </form>
-    <p style="margin-top:10px;">Once submitted, we will review your information and contact you to finalize onboarding.</p>
-  </div>
-</section>
-
-<section id="book-call">
-  <h2>Schedule a Call</h2>
-  <div class="card">
-    <p>Ready to talk about your trucks, lanes, and revenue goals? Use the form below to request a call and we’ll reach out to confirm a time.</p>
-    <form action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="ad2ab299-c5b8-496f-bca7-0623654bb951">
-
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <textarea name="time" placeholder="Preferred Call Time (Date, Time, Time Zone)" required></textarea>
-
-      <button type="submit">Request Call</button>
-    </form>
-    <p style="margin-top:10px;">You can also call us directly at <strong>619-856-9888</strong>.</p>
-  </div>
-</section>
-
-<section id="carrier-packet">
-  <h2>Carrier Packet</h2>
-  <div class="card">
-    <p>We provide a complete carrier packet so you can onboard quickly and start running loads without delays.</p>
-    <ul style="color:var(--muted);">
-      <li>W-9</li>
-      <li>Dispatch Agreement</li>
-      <li>MC Authority</li>
-      <li>Certificate of Insurance (COI)</li>
-      <li>Notice of Assignment (NOA)</li>
-      <li>Direct Deposit Form</li>
-    </ul>
-    <p>To receive the full packet, contact us via the forms above or email <strong>nationwidedispatching@outlook.com</strong>.</p>
-  </div>
-</section>
-
-<section id="why-us">
-  <h2>Why Choose Nationwide Dispatching</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>High-Paying Loads</h3>
-      <p>We focus on quality freight, not just filling your calendar. Our goal is to increase your weekly revenue.</p>
-    </div>
-    <div class="card">
-      <h3>No Forced Dispatch</h3>
-      <p>You decide where you want to run. We respect your preferences and business model.</p>
-    </div>
-    <div class="card">
-      <h3>Dedicated Dispatcher</h3>
-      <p>Work with one dispatcher who learns your lanes, style, and goals.</p>
-    </div>
-    <div class="card">
-      <h3>24/7 Support</h3>
-      <p>We’re available when you’re on the road, not just during office hours.</p>
-    </div>
-    <div class="card">
-      <h3>Transparent Pricing</h3>
-      <p>No hidden fees, no surprises. Clear percentage-based or custom fleet pricing.</p>
-    </div>
-  </div>
-</section>
-
-<section id="testimonials">
-  <h2>Testimonials</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Owner-Operator</h3>
-      <p>“Nationwide Dispatching keeps my truck moving with solid rates and lanes I actually like running.”</p>
-    </div>
-    <div class="card">
-      <h3>Small Fleet</h3>
-      <p>“They handle the back-office and dispatch so I can focus on drivers and equipment.”</p>
-    </div>
-    <div class="card">
-      <h3>New Authority</h3>
-      <p>“They helped me get started, explained everything clearly, and found loads that fit my situation.”</p>
-    </div>
-  </div>
-</section>
-
-<section id="coverage-map">
-  <h2>Service Areas & Coverage</h2>
-  <div class="card">
-    <p>We dispatch across the continental United States with a focus on profitable, consistent lanes.</p>
-    <p><strong>Primary Regions:</strong> Midwest, Southeast, Southwest, Northeast.</p>
-    <p><strong>Equipment:</strong> Dry Van, Reefer, Flatbed, Power-Only.</p>
-    <p>We can tailor lanes to your preferences and avoid regions you don’t want to run.</p>
-  </div>
-</section>
-
-<section id="faq">
-  <h2>Frequently Asked Questions</h2>
-  <div class="card">
-    <h3>How do I sign up?</h3>
-    <p>Use the “Become a Client” form above or email us at <strong>nationwidedispatching@outlook.com</strong> with your company details.</p>
-
-    <h3>What equipment do you dispatch?</h3>
-    <p>We primarily dispatch Dry Van, Reefer, Flatbed, and Power-Only units.</p>
-
-    <h3>Do you offer 24/7 support?</h3>
-    <p>Yes, we are available around the clock to support drivers on the road.</p>
-
-    <h3>How are your rates structured?</h3>
-    <p>We offer percentage-based pricing per load and custom fleet pricing for carriers with multiple trucks.</p>
-
-    <h3>Do you work with new authorities?</h3>
-    <p>Yes, we have a New Authority Program designed to help new carriers get started safely and profitably.</p>
-  </div>
-</section>
-
-<section id="load-boards">
-  <h2>Load Boards & Broker
+  <footer>
+    © 2026 Nationwide Dispatching — All Rights Reserved
+  </footer>
+</body>
+</html>
