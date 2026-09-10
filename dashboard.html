@@ -1,598 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>ELD Dashboard | Nationwide Dispatching</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --bg: #000000;
-      --bg2: #111111;
-      --bg3: #181818;
-      --gold: #f5c451;
-      --gold-soft: #e3b34a;
-      --red: #ff4b4b;
-      --green: #4caf50;
-      --text: #ffffff;
-      --muted: #b3b3b3;
-      --border: #333333;
-      --accent: #00e5ff;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- LED Theme Styles -->
+  <style>
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
       font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #f2f2f2;
     }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      min-height: 100vh;
-    }
-
     .sidebar {
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-      padding: 20px;
-      box-sizing: border-box;
+      width: 250px;
+      height: 100vh;
+      background: #111;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 20px;
+      border-right: 2px solid gold;
     }
-
-    .brand {
-      font-size: 18px;
-      font-weight: bold;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 5px;
+    .sidebar h2 {
+      text-align: center;
+      color: gold;
+      margin-bottom: 30px;
+      font-size: 22px;
     }
-
-    .brand span {
+    .sidebar a {
       display: block;
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-    .nav-section-title {
-      margin-top: 25px;
-      margin-bottom: 10px;
-      font-size: 12px;
-      text-transform: uppercase;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-
-    .nav-link {
-      display: block;
-      padding: 10px 12px;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      color: var(--text);
+      padding: 15px 20px;
+      color: #f2f2f2;
       text-decoration: none;
-      font-size: 14px;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      cursor: pointer;
+      font-size: 18px;
+      border-bottom: 1px solid #222;
+      transition: 0.3s;
     }
-
-    .nav-link:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+    .sidebar a:hover {
+      background: gold;
+      color: black;
     }
-
-    .nav-link.active {
-      border-color: var(--gold);
-      background: #1f1a0f;
-      color: var(--gold);
-      box-shadow: 0 0 8px rgba(245,196,81,0.6);
-    }
-
-    .status-pill {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      margin-top: 8px;
-      background: #1b1b1b;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .status-pill span {
-      color: var(--accent);
-      font-weight: bold;
-    }
-
-    .main {
+    .content {
+      margin-left: 260px;
       padding: 20px;
-      box-sizing: border-box;
     }
-
     h1 {
-      font-size: 24px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: var(--muted);
+      color: gold;
+      font-size: 28px;
       margin-bottom: 20px;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 2fr 1.5fr;
-      gap: 20px;
+    .box {
+      background: #1a1a1a;
+      padding: 20px;
+      border: 2px solid gold;
+      border-radius: 8px;
+      margin-bottom: 25px;
     }
-
-    .card {
-      background: var(--bg2);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 16px;
-      box-sizing: border-box;
-    }
-
-    .card h2 {
+    .status-buttons button {
+      background: gold;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
       font-size: 16px;
-      color: var(--gold);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .card p {
-      font-size: 13px;
-      color: var(--muted);
+      border-radius: 5px;
+      margin-right: 10px;
       margin-bottom: 10px;
+      transition: 0.3s;
     }
-
-    .status-buttons {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+    .status-buttons button:hover {
+      background: #d4af37;
     }
-
-    .status-btn {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #141414;
-      color: var(--text);
-      font-size: 12px;
-      cursor: pointer;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a1a1a;
+      border: 2px solid gold;
     }
-
-    .status-btn.active {
-      border-color: var(--gold);
-      background: #1f1a0f;
-      color: var(--gold);
-      box-shadow: 0 0 10px rgba(245,196,81,0.7);
+    th, td {
+      padding: 12px;
+      border: 1px solid #333;
+      text-align: left;
     }
-
-    .status-btn.driving {
-      border-color: var(--accent);
-    }
-
-    .status-btn.off {
-      border-color: var(--muted);
-    }
-
-    .status-btn:hover {
-      border-color: var(--gold-soft);
-    }
-
-    .timers {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .timer {
-      background: #141414;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      padding: 10px;
-      font-size: 12px;
-    }
-
-    .timer-label {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 11px;
-    }
-
-    .timer-value {
-      margin-top: 4px;
+    th {
+      background: gold;
+      color: black;
       font-size: 18px;
-      font-weight: bold;
-      color: var(--accent);
     }
-
-    .timer-warning {
-      color: var(--red);
-    }
-
-    .log-list {
-      max-height: 260px;
-      overflow-y: auto;
-      margin-top: 10px;
-      border-top: 1px solid var(--border);
-      padding-top: 10px;
-    }
-
-    .log-entry {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      border-bottom: 1px dashed #222;
-      padding-bottom: 4px;
-    }
-
-    .log-entry span {
-      color: var(--gold-soft);
-    }
-
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .user-info {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .user-info span {
-      color: var(--gold);
-      font-weight: bold;
-    }
-
-    .logout-btn {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+    tr:nth-child(even) {
       background: #141414;
-      color: var(--muted);
-      font-size: 11px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .logout-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-      .grid {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="brand">
-      NATIONWIDE DISPATCHING
-      <span>ELD & Dispatch Control Panel</span>
-    </div>
+  <div class="sidebar">
+    <h2>Dispatch Panel</h2>
+    <a href="dashboard.html" style="background: gold; color: black;">Dashboard</a>
+    <a href="loads.html">Loads</a>
+    <a href="carriers.html">Carriers</a>
+    <a href="documents.html">Documents</a>
+    <a href="admin.html">Admin</a>
+    <a href="dispatcher-login.html">Logout</a>
+  </div>
 
-    <div class="nav-section-title">Navigation</div>
-    <a href="dashboard.html" class="nav-link active">ELD Dashboard</a>
-    <a href="loads.html" class="nav-link">Loads</a>
-    <a href="carriers.html" class="nav-link">Carriers</a>
-    <a href="documents.html" class="nav-link">Documents</a>
+  <div class="content">
+    <h1>ELD Dashboard</h1>
 
-    <div class="nav-section-title">Status</div>
-    <div class="status-pill">
-      User Role: <span id="roleLabel">Loading...</span>
-    </div>
-    <div class="status-pill">
-      Current Status: <span id="currentStatusLabel">Unknown</span>
-    </div>
-  </aside>
-
-  <main class="main">
-    <div class="top-row">
-      <div>
-        <h1>ELD Dashboard</h1>
-        <div class="subtitle">
-          Real-time duty status, HOS timers, and log history for drivers and dispatchers.
-        </div>
+    <div class="box">
+      <h2>Current Duty Status: <span id="currentStatus">Unknown</span></h2>
+      <div class="status-buttons">
+        <button id="btnDriving">Driving</button>
+        <button id="btnOnDuty">On Duty</button>
+        <button id="btnOffDuty">Off Duty</button>
+        <button id="btnSleeper">Sleeper Berth</button>
       </div>
-      <div>
-        <div class="user-info">
-          Logged in as: <span id="userEmailLabel">Loading...</span>
-        </div>
-        <button class="logout-btn" id="logoutBtn">Logout</button>
-      </div>
+      <p>All duty status changes are recorded as log entries in Firestore.</p>
     </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Duty Status & Controls</h2>
-        <p>Drivers can update their duty status. Dispatchers see live status and timers.</p>
-
-        <div class="status-buttons">
-          <button class="status-btn driving" data-status="DRIVING">Driving</button>
-          <button class="status-btn" data-status="ON_DUTY">On Duty</button>
-          <button class="status-btn off" data-status="OFF_DUTY">Off Duty</button>
-          <button class="status-btn" data-status="SLEEPER">Sleeper Berth</button>
-        </div>
-
-        <div class="timers">
-          <div class="timer">
-            <div class="timer-label">11-Hour Driving</div>
-            <div class="timer-value" id="drivingTimer">--:--:--</div>
-          </div>
-          <div class="timer">
-            <div class="timer-label">14-Hour Shift</div>
-            <div class="timer-value" id="shiftTimer">--:--:--</div>
-          </div>
-          <div class="timer">
-            <div class="timer-label">30-Minute Break</div>
-            <div class="timer-value" id="breakTimer">--:--:--</div>
-          </div>
-          <div class="timer">
-            <div class="timer-label">70-Hour Weekly</div>
-            <div class="timer-value" id="weeklyTimer">--:--:--</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Log History</h2>
-        <p>All duty status changes are recorded as log entries in Firestore.</p>
-        <div class="log-list" id="logList">
-          <div class="log-entry">Loading logs...</div>
-        </div>
-      </div>
+    <div class="box">
+      <h2>Log History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Time</th>
+            <th>Changed By</th>
+          </tr>
+        </thead>
+        <tbody id="logHistory"></tbody>
+      </table>
     </div>
-  </main>
-</div>
+  </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { 
-    getAuth, onAuthStateChanged, signOut 
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { 
-    getFirestore, doc, getDoc, setDoc, collection, addDoc, query, orderBy, limit, onSnapshot 
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-  import { firebaseConfig } from "./firebase-config.js";
+  <script>
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+    // Driver UID (from you)
+    const driverUID = "q7BEObUuujURQc1hwJEK5gyeacm1";
 
-  const roleLabel = document.getElementById("roleLabel");
-  const currentStatusLabel = document.getElementById("currentStatusLabel");
-  const userEmailLabel = document.getElementById("userEmailLabel");
-  const logoutBtn = document.getElementById("logoutBtn");
+    // Write a log entry
+    function writeLogEntry(status) {
+      const user = auth.currentUser;
+      const who = user ? user.email : "Unknown";
 
-  const drivingTimerEl = document.getElementById("drivingTimer");
-  const shiftTimerEl = document.getElementById("shiftTimer");
-  const breakTimerEl = document.getElementById("breakTimer");
-  const weeklyTimerEl = document.getElementById("weeklyTimer");
-  const logListEl = document.getElementById("logList");
-
-  const statusButtons = document.querySelectorAll(".status-btn");
-
-  let currentUser = null;
-  let currentStatus = "UNKNOWN";
-
-  // Timers in milliseconds (example values)
-  const DRIVING_LIMIT = 11 * 60 * 60 * 1000;   // 11 hours
-  const SHIFT_LIMIT   = 14 * 60 * 60 * 1000;   // 14 hours
-  const BREAK_LIMIT   = 30 * 60 * 1000;        // 30 minutes
-  const WEEKLY_LIMIT  = 70 * 60 * 60 * 1000;   // 70 hours
-
-  let drivingRemaining = DRIVING_LIMIT;
-  let shiftRemaining   = SHIFT_LIMIT;
-  let breakRemaining   = BREAK_LIMIT;
-  let weeklyRemaining  = WEEKLY_LIMIT;
-
-  let lastStatusChangeTime = Date.now();
-  let timerInterval = null;
-
-  function formatMs(ms) {
-    if (ms < 0) ms = 0;
-    const totalSeconds = Math.floor(ms / 1000);
-    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
-    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
-    const s = String(totalSeconds % 60).padStart(2, "0");
-    return `${h}:${m}:${s}`;
-  }
-
-  function updateTimersDisplay() {
-    drivingTimerEl.textContent = formatMs(drivingRemaining);
-    shiftTimerEl.textContent   = formatMs(shiftRemaining);
-    breakTimerEl.textContent   = formatMs(breakRemaining);
-    weeklyTimerEl.textContent  = formatMs(weeklyRemaining);
-
-    if (drivingRemaining <= 0 || shiftRemaining <= 0 || weeklyRemaining <= 0) {
-      drivingTimerEl.classList.add("timer-warning");
-      shiftTimerEl.classList.add("timer-warning");
-      weeklyTimerEl.classList.add("timer-warning");
-    }
-  }
-
-  function tickTimers() {
-    const now = Date.now();
-    const delta = now - lastStatusChangeTime;
-    lastStatusChangeTime = now;
-
-    if (currentStatus === "DRIVING") {
-      drivingRemaining -= delta;
-      shiftRemaining   -= delta;
-      weeklyRemaining  -= delta;
-      breakRemaining   -= delta;
-    } else if (currentStatus === "ON_DUTY") {
-      shiftRemaining   -= delta;
-      weeklyRemaining  -= delta;
-    } else if (currentStatus === "OFF_DUTY" || currentStatus === "SLEEPER") {
-      // Off duty / sleeper: clocks paused except weekly (optional)
-      // weeklyRemaining -= delta; // uncomment if you want weekly to always count
+      db.collection("eld_logs")
+        .doc(driverUID)
+        .collection("log_entries")
+        .add({
+          status: status,
+          timestamp: new Date().toISOString(),
+          changed_by: who
+        });
     }
 
-    updateTimersDisplay();
-  }
-
-  function startTimerLoop() {
-    if (timerInterval) clearInterval(timerInterval);
-    lastStatusChangeTime = Date.now();
-    timerInterval = setInterval(tickTimers, 1000);
-  }
-
-  async function loadUserRoleAndStatus(user) {
-    // Example: dispatcher_registrations/{uid} holds role + approved
-    const regRef = doc(db, "dispatcher_registrations", user.uid);
-    const regSnap = await getDoc(regRef);
-
-    if (regSnap.exists()) {
-      const data = regSnap.data();
-      const role = data.role || "driver"; // "driver" or "dispatcher"
-      const approved = !!data.approved;
-
-      roleLabel.textContent = approved ? role.toUpperCase() : "NOT APPROVED";
-
-      if (!approved) {
-        currentStatusLabel.textContent = "ACCESS DENIED";
-        alert("Your account is not approved yet.");
-        return;
-      }
-
-      // Load last known status from eld_state/{uid}
-      const stateRef = doc(db, "eld_state", user.uid);
-      const stateSnap = await getDoc(stateRef);
-      if (stateSnap.exists()) {
-        const s = stateSnap.data();
-        currentStatus = s.currentStatus || "OFF_DUTY";
-        drivingRemaining = s.drivingRemaining ?? DRIVING_LIMIT;
-        shiftRemaining   = s.shiftRemaining   ?? SHIFT_LIMIT;
-        breakRemaining   = s.breakRemaining   ?? BREAK_LIMIT;
-        weeklyRemaining  = s.weeklyRemaining  ?? WEEKLY_LIMIT;
-      } else {
-        currentStatus = "OFF_DUTY";
-      }
-
-      applyStatusUI();
-      updateTimersDisplay();
-      startTimerLoop();
-      subscribeToLogs(user.uid);
-    } else {
-      roleLabel.textContent = "UNKNOWN";
-      alert("No dispatcher/driver registration found for this user.");
-    }
-  }
-
-  function applyStatusUI() {
-    currentStatusLabel.textContent = currentStatus.replace("_", " ");
-    statusButtons.forEach(btn => {
-      const s = btn.getAttribute("data-status");
-      if (s === currentStatus) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-  }
-
-  async function changeStatus(newStatus) {
-    if (!currentUser) return;
-    currentStatus = newStatus;
-    applyStatusUI();
-    lastStatusChangeTime = Date.now();
-
-    // Save state
-    const stateRef = doc(db, "eld_state", currentUser.uid);
-    await setDoc(stateRef, {
-      currentStatus,
-      drivingRemaining,
-      shiftRemaining,
-      breakRemaining,
-      weeklyRemaining,
-      updatedAt: Date.now()
-    }, { merge: true });
-
-    // Add log entry
-    const logsRef = collection(db, "eld_logs", currentUser.uid, "log_entries");
-    await addDoc(logsRef, {
-      status: currentStatus,
-      timestamp: Date.now(),
-      drivingRemaining,
-      shiftRemaining,
-      breakRemaining,
-      weeklyRemaining
-    });
-  }
-
-  function subscribeToLogs(uid) {
-    const logsRef = collection(db, "eld_logs", uid, "log_entries");
-    const q = query(logsRef, orderBy("timestamp", "desc"), limit(50));
-    onSnapshot(q, (snapshot) => {
-      logListEl.innerHTML = "";
-      if (snapshot.empty) {
-        logListEl.innerHTML = "<div class='log-entry'>No log entries yet.</div>";
-        return;
-      }
-      snapshot.forEach(docSnap => {
-        const d = docSnap.data();
-        const date = new Date(d.timestamp);
-        const timeStr = date.toLocaleString();
-        const statusStr = d.status || "UNKNOWN";
-        const line = document.createElement("div");
-        line.className = "log-entry";
-        line.innerHTML = `<span>${statusStr}</span> at ${timeStr}`;
-        logListEl.appendChild(line);
+    // Update duty status + log it
+    function updateDutyStatus(status) {
+      db.collection("eld_state").doc(driverUID).set({
+        status: status,
+        updated: new Date().toISOString()
       });
-    });
-  }
 
-  statusButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const s = btn.getAttribute("data-status");
-      changeStatus(s);
-    });
-  });
+      writeLogEntry(status);
 
-  logoutBtn.addEventListener("click", async () => {
-    await signOut(auth);
-    window.location.href = "dispatcher-login.html";
-  });
-
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      window.location.href = "dispatcher-login.html";
-      return;
+      const el = document.getElementById("currentStatus");
+      if (el) el.innerText = status;
     }
-    currentUser = user;
-    userEmailLabel.textContent = user.email || user.uid;
-    await loadUserRoleAndStatus(user);
-  });
-</script>
+
+    // Wire buttons
+    window.addEventListener("load", () => {
+      const btnDriving = document.getElementById("btnDriving");
+      const btnOnDuty = document.getElementById("btnOnDuty");
+      const btnOffDuty = document.getElementById("btnOffDuty");
+      const btnSleeper = document.getElementById("btnSleeper");
+
+      if (btnDriving) btnDriving.onclick = () => updateDutyStatus("Driving");
+      if (btnOnDuty) btnOnDuty.onclick = () => updateDutyStatus("On Duty");
+      if (btnOffDuty) btnOffDuty.onclick = () => updateDutyStatus("Off Duty");
+      if (btnSleeper) btnSleeper.onclick = () => updateDutyStatus("Sleeper Berth");
+    });
+
+    // Load current status
+    db.collection("eld_state").doc(driverUID).onSnapshot(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        const el = document.getElementById("currentStatus");
+        if (el && data.status) el.innerText = data.status;
+      }
+    });
+
+    // Real-time log history
+    db.collection("eld_logs")
+      .doc(driverUID)
+      .collection("log_entries")
+      .orderBy("timestamp", "desc")
+      .onSnapshot(snapshot => {
+        const table = document.getElementById("logHistory");
+        if (!table) return;
+
+        table.innerHTML = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const row = `
+            <tr>
+              <td>${data.status}</td>
+              <td>${new Date(data.timestamp).toLocaleString()}</td>
+              <td>${data.changed_by}</td>
+            </tr>
+          `;
+          table.innerHTML += row;
+        });
+      });
+  </script>
 </body>
 </html>
