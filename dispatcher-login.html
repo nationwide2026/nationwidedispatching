@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dispatcher Login</title>
+</head>
+<body>
+  <h2>Dispatcher Login</h2>
+
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="msg"></p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } 
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { firebaseConfig } from "./firebase-config.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCred.user;
+
+        // Check approval
+        const ref = doc(db, "dispatcher_registrations", user.uid);
+        const snap = await getDoc(ref);
+
+        if (!snap.exists()) {
+          msg.textContent = "Account not found.";
+          return;
+        }
+
+        if (!snap.data().approved) {
+          msg.textContent = "Your account is not approved yet.";
+          return;
+        }
+
+        window.location.href = "dispatcher-dashboard.html";
+
+      } catch (error) {
+        msg.textContent = "Login failed: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
