@@ -293,194 +293,165 @@
         </div>
       </div>
     </div>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-      import {
-        getFirestore,
-        collection,
-        getDocs,
-        doc,
-        setDoc,
-        updateDoc,
-        deleteDoc
-      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+   <script>
+  // Firebase Compat Version (works on GitHub Pages)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDXNZRDMmUJXoqMsFwluElbrSICN65Kmvc",
+    authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
+    projectId: "nationwide-dispatching-7b346",
+    storageBucket: "nationwide-dispatching-7b346.appspot.com",
+    messagingSenderId: "280010805970",
+    appId: "1:280010805970:web:42989433f02939aca3930b"
+  };
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyDXNZRDMmUJXoqMsFwluElbrSICN65Kmvc",
-        authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
-        projectId: "nationwide-dispatching-7b346",
-        storageBucket: "nationwide-dispatching-7b346.appspot.com",
-        messagingSenderId: "280010805970",
-        appId: "1:280010805970:web:42989433f02939aca3930b"
-      };
+  // Load Firebase Compat libraries
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+  // LOGOUT
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await auth.signOut();
+    window.location.href = "dispatcher-login.html";
+  });
 
-      // LOGOUT
-      document.getElementById("logoutBtn").addEventListener("click", async () => {
-        await signOut(auth);
-        window.location.href = "dispatcher-login.html";
+  // AUTH PROTECTION
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "dispatcher-login.html";
+    } else {
+      loadData();
+    }
+  });
+
+  async function loadData() {
+    const driversSnap = await db.collection("drivers").get();
+    const loadsSnap = await db.collection("loads").get();
+
+    const drivers = driversSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const loads = loadsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    renderDrivers(drivers);
+    renderLoads(loads);
+  }
+
+  function renderDrivers(drivers) {
+    const tbody = document.querySelector("#driversTable tbody");
+    tbody.innerHTML = "";
+
+    drivers.forEach(d => {
+      const tr = document.createElement("tr");
+
+      const statusClass =
+        d.status === "DRIVING" ? "status-driving" :
+        d.status === "OFF DUTY" ? "status-off" :
+        d.status === "ON DUTY" ? "status-on" :
+        "status-violation";
+
+      tr.innerHTML = `
+        <td>${d.name}</td>
+        <td><span class="status-pill ${statusClass}">${d.status}</span></td>
+        <td>${d.driveLeft} hrs</td>
+        <td>${d.onDutyLeft} hrs</td>
+        <td>
+          <button class="edit-button" data-type="driver" data-id="${d.id}">Edit</button>
+          <button class="delete-button" data-type="driver" data-id="${d.id}">Delete</button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderLoads(loads) {
+    const tbody = document.querySelector("#loadsTable tbody");
+    tbody.innerHTML = "";
+
+    loads.forEach(l => {
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${l.id}</td>
+        <td>${l.lane}</td>
+        <td>${l.driver}</td>
+        <td>$${l.rpm.toFixed(2)}/mi</td>
+        <td>${l.status}</td>
+        <td>
+          <button class="edit-button" data-type="load" data-id="${l.id}">Edit</button>
+          <button class="delete-button" data-type="load" data-id="${l.id}">Delete</button>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ADD DRIVER
+  document.getElementById("addDriverForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("driverName").value;
+    const status = document.getElementById("driverStatus").value;
+    const driveLeft = parseFloat(document.getElementById("driverDriveLeft").value);
+    const onDutyLeft = parseFloat(document.getElementById("driverOnDutyLeft").value);
+
+    await db.collection("drivers").doc(name).set({
+      name,
+      status,
+      driveLeft,
+      onDutyLeft
+    });
+
+    e.target.reset();
+    loadData();
+  });
+
+  // ADD LOAD
+  document.getElementById("addLoadForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById("loadId").value;
+    const lane = document.getElementById("loadLane").value;
+    const driver = document.getElementById("loadDriver").value;
+    const rpm = parseFloat(document.getElementById("loadRpm").value);
+    const status = document.getElementById("loadStatus").value;
+
+    await db.collection("loads").doc(id).set({
+      id,
+      lane,
+      driver,
+      rpm,
+      status
+    });
+
+    e.target.reset();
+    loadData();
+  });
+
+  // EDIT + DELETE
+  document.addEventListener("click", async (e) => {
+    const btn = e.target;
+    if (!btn.dataset.id) return;
+
+    const type = btn.dataset.type;
+    const id = btn.dataset.id;
+
+    if (btn.classList.contains("delete-button")) {
+      await db.collection(type === "driver" ? "drivers" : "loads").doc(id).delete();
+      loadData();
+    }
+
+    if (btn.classList.contains("edit-button")) {
+      const newValue = prompt("Enter new status/value:");
+      if (!newValue) return;
+
+      await db.collection(type === "driver" ? "drivers" : "loads").doc(id).update({
+        status: newValue
       });
 
-      // AUTH PROTECTION
-      onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          window.location.href = "dispatcher-login.html";
-        } else {
-          loadData();
-        }
-      });
-
-      async function loadData() {
-        const driversSnap = await getDocs(collection(db, "drivers"));
-        const loadsSnap = await getDocs(collection(db, "loads"));
-
-        const drivers = driversSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const loads = loadsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-        renderDrivers(drivers);
-        renderLoads(loads);
-      }
-
-      function renderDrivers(drivers) {
-        const tbody = document.querySelector("#driversTable tbody");
-        tbody.innerHTML = "";
-
-        drivers.forEach(d => {
-          const tr = document.createElement("tr");
-
-          const statusClass =
-            d.status === "DRIVING" ? "status-driving" :
-            d.status === "OFF DUTY" ? "status-off" :
-            d.status === "ON DUTY" ? "status-on" :
-            "status-violation";
-
-          const driveLeft = Number(d.driveLeft || 0);
-          const onDutyLeft = Number(d.onDutyLeft || 0);
-
-          tr.innerHTML = `
-            <td>
-              ${d.name}
-              <div class="hos-bar">
-                <div class="${driveLeft <= 1 ? "hos-fill-danger" : "hos-fill"}"
-                     style="width:${Math.min(100, (driveLeft / 11) * 100)}%;"></div>
-              </div>
-            </td>
-            <td><span class="status-pill ${statusClass}">${d.status}</span></td>
-            <td>${driveLeft} hrs</td>
-            <td>${onDutyLeft} hrs</td>
-            <td>
-              <button class="action-button edit-button" data-type="driver" data-id="${d.id}">Edit</button>
-              <button class="action-button delete-button" data-type="driver" data-id="${d.id}">Delete</button>
-            </td>
-          `;
-
-          tbody.appendChild(tr);
-        });
-      }
-
-      function renderLoads(loads) {
-        const tbody = document.querySelector("#loadsTable tbody");
-        tbody.innerHTML = "";
-
-        loads.forEach(l => {
-          const tr = document.createElement("tr");
-          const rpm = Number(l.rpm || 0);
-
-          tr.innerHTML = `
-            <td>${l.id}</td>
-            <td>${l.lane}</td>
-            <td>${l.driver}</td>
-            <td>$${rpm.toFixed(2)}/mi</td>
-            <td>${l.status}</td>
-            <td>
-              <button class="action-button edit-button" data-type="load" data-id="${l.id}">Edit</button>
-              <button class="action-button delete-button" data-type="load" data-id="${l.id}">Delete</button>
-            </td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-
-      // ADD DRIVER
-      document.getElementById("addDriverForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById("driverName").value.trim();
-        const status = document.getElementById("driverStatus").value.trim();
-        const driveLeft = parseFloat(document.getElementById("driverDriveLeft").value);
-        const onDutyLeft = parseFloat(document.getElementById("driverOnDutyLeft").value);
-
-        if (!name) return;
-
-        await setDoc(doc(db, "drivers", name), {
-          name,
-          status,
-          driveLeft,
-          onDutyLeft
-        });
-
-        e.target.reset();
-        await loadData();
-      });
-
-      // ADD LOAD
-      document.getElementById("addLoadForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const id = document.getElementById("loadId").value.trim();
-        const lane = document.getElementById("loadLane").value.trim();
-        const driver = document.getElementById("loadDriver").value.trim();
-        const rpm = parseFloat(document.getElementById("loadRpm").value);
-        const status = document.getElementById("loadStatus").value.trim();
-
-        if (!id) return;
-
-        await setDoc(doc(db, "loads", id), {
-          id,
-          lane,
-          driver,
-          rpm,
-          status
-        });
-
-        e.target.reset();
-        await loadData();
-      });
-
-      // EDIT / DELETE HANDLERS
-      document.addEventListener("click", async (e) => {
-        const btn = e.target;
-        if (!btn.dataset || !btn.dataset.type) return;
-
-        const type = btn.dataset.type;
-        const id = btn.dataset.id;
-
-        if (btn.classList.contains("edit-button")) {
-          if (type === "driver") {
-            const ref = doc(db, "drivers", id);
-            const newStatus = prompt("New status:");
-            const newDrive = prompt("New drive left (hrs):");
-            const newOnDuty = prompt("New on duty left (hrs):");
-
-            await updateDoc(ref, {
-              status: newStatus || "",
-              driveLeft: parseFloat(newDrive || 0),
-              onDutyLeft: parseFloat(newOnDuty || 0)
-            });
-
-            await loadData();
-          }
-
-          if (type === "load") {
-            const ref = doc(db, "loads", id);
-            const newLane = prompt("New lane:");
-            const newDriver = prompt("New assigned driver:");
-            const newRpm = prompt("New RPM:");
-            const newStatus = prompt("New status:");
-
-            await updateDoc(ref, {
-              lane: new
+      loadData();
+    }
+  });
+</script>
+</body>
+</html>
