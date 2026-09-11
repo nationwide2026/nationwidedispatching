@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dispatch Services | Nationwide Dispatching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050505;
+      --gold: #ffd700;
+      --gold-soft: #e6c45a;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
+      color: var(--text);
+      margin: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,215,0,0.35);
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      border-color: rgba(255,215,0,0.7);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255,215,0,0.7);
+    }
+
+    .nav-cta {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow:
+        0 10px 18px rgba(0,0,0,0.9),
+        0 0 16px rgba(255,215,0,0.8);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+      border-radius: 14px;
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 16px 32px rgba(0,0,0,0.9),
+        0 0 12px rgba(0,0,0,0.8);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div style="color: var(--gold); font-weight: 600; font-size: 18px;">
+        Nationwide Dispatching
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Dispatch Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="resources.html">Dispatch Resources</a>
+        <a href="onboarding.html">Onboarding</a>
+        <a href="contact.html">Contact</a>
+        <a class="nav-cta" href="dispatcher-login.html">Dispatcher Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <div class="page-kicker">Dispatch Services</div>
+      <div class="page-title">Professional U.S.-Based Truck Dispatching</div>
+      <div class="page-sub">
+        Our dispatch workflow is built around carriers — not just freight.  
+        We help owner-operators and fleets source quality loads, negotiate stronger rates,  
+        manage broker communication, organize documents, and keep trucks moving with  
+        structured, carrier-first dispatch support.
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-title">Dispatch Workflow Overview</div>
+      <div class="section-sub">
+        A clean, step-by-step workflow inspired by industry best practices —  
+        from onboarding and broker setup to load planning, negotiation, tracking,  
+        and paperwork handling.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>01 — Carrier Onboarding</h3>
+          <p>
+            We review your equipment, lanes, home-time needs, operating costs,  
+            and rate-per-mile goals before building a dispatch strategy tailored  
+            to your operation.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>02 — Lane & Equipment Review</h3>
+          <p>
+            Your preferred markets, reload zones, and equipment type guide  
+            every dispatch decision — ensuring freight fits your operation.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>03 — Load Sourcing & Negotiation</h3>
+          <p>
+            We evaluate freight for timing, rate potential, broker quality,  
+            payment risk, and operational fit before presenting it to you  
+            for approval.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>04 — Dispatch, Tracking & Paperwork</h3>
+          <p>
+            After booking, we handle check calls, broker updates, appointment  
+            coordination, issue management, and document collection.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">Why Our Process Matters</div>
+      <div class="section-sub">
+        Dispatching is more than finding freight — it’s about choosing the right loads,  
+        protecting your truck from bad situations, confirming details, negotiating correctly,  
+        and keeping paperwork clean from pickup through payment.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>No Forced Dispatch</h3>
+          <p>
+            You approve every load before booking.  
+            We never push freight that doesn’t fit your goals.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Broker Discipline</h3>
+          <p>
+            We review broker setup, communication quality, payment reliability,  
+            and risk signals before committing.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Cleaner Booking</h3>
+          <p>
+            Rate confirmations, appointment details, PODs, and billing documents  
+            stay organized for faster payment.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Less Chaos</h3>
+          <p>
+            We handle negotiation, setup documents, updates, and paperwork  
+            so you can focus on driving.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Operational Tasks We Handle</div>
+      <div class="section-sub">
+        A full lifecycle of dispatch support — from load search to paperwork follow-up.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Load Search</h3>
+          <p>Freight reviewed for lane fit, timing, equipment, and rate potential.</p>
+        </div>
+
+        <div class="card">
+          <h3>Rate Negotiation</h3>
+          <p>Counteroffers, accessorials, and clearer terms before booking.</p>
+        </div>
+
+        <div class="card">
+          <h3>Broker Setup</h3>
+          <p>Packets, COIs, W-9s, NOAs, and setup requirements prepared early.</p>
+        </div>
+
+        <div class="card">
+          <h3>Risk Checks</h3>
+          <p>Fraud-aware review to reduce double-brokering and payment issues.</p>
+        </div>
+
+        <div class="card">
+          <h3>Check Calls</h3>
+          <p>Broker updates, appointment communication, delay handling.</p>
+        </div>
+
+        <div class="card">
+          <h3>Paperwork Follow-Up</h3>
+          <p>BOLs, PODs, lumper receipts, and billing documents organized.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Ready to Move Forward?</div>
+      <div class="section-sub">
+        Start onboarding, compare pricing, or contact dispatch to talk through  
+        your equipment, lanes, and operating goals.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Start Onboarding</h3>
+          <p>Begin the process and send your details directly to dispatch.</p>
+          <a class="card-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+
+        <div class="card">
+          <h3>See Pricing</h3>
+          <p>Review dispatch fees for each equipment type.</p>
+          <a class="card-link" href="pricing.html">View pricing →</a>
+        </div>
+
+        <div class="card">
+          <h3>Contact Dispatch</h3>
+          <p>Ask questions or request a call — messages go straight to Outlook.</p>
+          <a class="card-link" href="contact.html">Contact us →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Nationwide Dispatching</strong> · Phone: (619) 856-9888 · Email: nationwidedispatching@outlook.com<br />
+    © 2026 Nationwide Dispatching — All Rights Reserved
+  </footer>
+</body>
+</html>
