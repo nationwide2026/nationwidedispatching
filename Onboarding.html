@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carrier Onboarding | Nationwide Dispatching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050505;
+      --gold: #ffd700;
+      --gold-soft: #e6c45a;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
+      color: var(--text);
+      margin: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,215,0,0.35);
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      border-color: rgba(255,215,0,0.7);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255,215,0,0.7);
+    }
+
+    .nav-cta {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow:
+        0 10px 18px rgba(0,0,0,0.9),
+        0 0 16px rgba(255,215,0,0.8);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .step-section {
+      margin-bottom: 50px;
+    }
+
+    .step-title {
+      font-size: 22px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .step-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+      border-radius: 14px;
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 16px 32px rgba(0,0,0,0.9),
+        0 0 12px rgba(0,0,0,0.8);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    form {
+      margin-top: 40px;
+      background: #0b0b0b;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,215,0,0.3);
+      box-shadow:
+        0 16px 32px rgba(0,0,0,0.9),
+        0 0 12px rgba(0,0,0,0.8);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: var(--gold-soft);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #050505;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 999px;
+      border: none;
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: var(--gold-soft);
+    }
+
+    .success {
+      margin-top: 10px;
+      color: var(--gold-soft);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div style="color: var(--gold); font-weight: 600; font-size: 18px;">
+        Nationwide Dispatching
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Dispatch Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="resources.html">Dispatch Resources</a>
+        <a href="onboarding.html">Onboarding</a>
+        <a href="contact.html">Contact</a>
+        <a class="nav-cta" href="dispatcher-login.html">Dispatcher Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <div class="page-kicker">Carrier Onboarding</div>
+      <div class="page-title">6‑Step Dispatch Activation</div>
+      <div class="page-sub">
+        Follow the steps below to activate dispatching with Nationwide Dispatching.  
+        Once completed, your onboarding details will be sent directly to  
+        <strong>nationwidedispatching@outlook.com</strong>.
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="step-section">
+      <div class="step-title">Step 01 — Requirements</div>
+      <div class="step-sub">
+        Minimum requirements needed before dispatch activation.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Active MC or DOT</h3>
+          <p>Your authority must be active and in good standing.</p>
+        </div>
+
+        <div class="card">
+          <h3>ELD System</h3>
+          <p>Motive, Samsara, Garmin, or equivalent required.</p>
+        </div>
+
+        <div class="card">
+          <h3>Equipment Ready</h3>
+          <p>Dry Van · Reefer · Flatbed · Hot Shot · Power Only.</p>
+        </div>
+
+        <div class="card">
+          <h3>Valid Insurance</h3>
+          <p>Liability + Cargo coverage meeting broker requirements.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section">
+      <div class="step-title">Step 02 — Dispatch Agreement</div>
+      <div class="step-sub">
+        Review and accept the dispatch terms before activation.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>No Forced Dispatch</h3>
+          <p>You approve every load before booking.</p>
+        </div>
+
+        <div class="card">
+          <h3>Transparent Pricing</h3>
+          <p>Simple percentage‑based pricing with no hidden fees.</p>
+        </div>
+
+        <div class="card">
+          <h3>Carrier‑First Approach</h3>
+          <p>We prioritize your lanes, home time, and RPM goals.</p>
+        </div>
+      </div>
+    </section>
+    <!-- STEP 3 -->
+    <section class="step-section">
+      <div class="step-title">Step 03 — Driver & Truck Details</div>
+      <div class="step-sub">
+        Provide basic information about your drivers and equipment.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Driver Info</h3>
+          <p>Name · Phone · Email · Experience.</p>
+        </div>
+
+        <div class="card">
+          <h3>Truck Details</h3>
+          <p>Year · Make · Model · VIN · Trailer type.</p>
+        </div>
+
+        <div class="card">
+          <h3>Operating Preferences</h3>
+          <p>Home time · Preferred lanes · Max daily miles.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section">
+      <div class="step-title">Step 04 — Billing Setup</div>
+      <div class="step-sub">
+        Ensure your billing information is ready for broker setup.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Factoring Info</h3>
+          <p>MC · Contact · Email · NOA if applicable.</p>
+        </div>
+
+        <div class="card">
+          <h3>Payment Terms</h3>
+          <p>Net terms · Quick pay · Factoring requirements.</p>
+        </div>
+
+        <div class="card">
+          <h3>Broker Setup</h3>
+          <p>We handle packets, COIs, W‑9s, and setup documents.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section">
+      <div class="step-title">Step 05 — Compliance Review</div>
+      <div class="step-sub">
+        Final compliance checks before dispatch activation.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Safety Rating</h3>
+          <p>Ensure your DOT safety rating is acceptable.</p>
+        </div>
+
+        <div class="card">
+          <h3>Insurance Verification</h3>
+          <p>Confirm liability + cargo coverage meets standards.</p>
+        </div>
+
+        <div class="card">
+          <h3>ELD Compliance</h3>
+          <p>Ensure logs and duty status are properly maintained.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section">
+      <div class="step-title">Step 06 — Activation</div>
+      <div class="step-sub">
+        Submit your onboarding form below to activate dispatching.
+      </div>
+
+      <form id="onboardForm">
+        <label>Company Name</label>
+        <input type="text" id="company" required />
+
+        <label>MC or DOT Number</label>
+        <input type="text" id="mc" required />
+
+        <label>Email</label>
+        <input type="email" id="email" required />
+
+        <label>Phone</label>
+        <input type="text" id="phone" required />
+
+        <label>Equipment Type</label>
+        <select id="equipment" required>
+          <option value="">Select equipment</option>
+          <option>Dry Van</option>
+          <option>Reefer</option>
+          <option>Flatbed</option>
+          <option>Hot Shot</option>
+          <option>Power Only</option>
+        </select>
+
+        <label>Number of Trucks</label>
+        <input type="number" id="trucks" required />
+
+        <label>Preferred Lanes</label>
+        <textarea id="lanes"></textarea>
+
+        <label>Additional Notes</label>
+        <textarea id="notes"></textarea>
+
+        <button type="submit">Submit Onboarding</button>
+        <div id="successMsg" class="success"></div>
+      </form>
+
+      <script>
+        document.getElementById("onboardForm").addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {
+            company: document.getElementById("company").value,
+            mc: document.getElementById("mc").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            equipment: document.getElementById("equipment").value,
+            trucks: document.getElementById("trucks").value,
+            lanes: document.getElementById("lanes").value,
+            notes: document.getElementById("notes").value
+          };
+
+          const FUNCTION_URL = "https://YOUR_CLOUD_FUNCTION_URL/sendOnboarding";
+
+          try {
+            const res = await fetch(FUNCTION_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+
+            if (res.ok) {
+              document.getElementById("successMsg").innerText =
+                "Onboarding submitted successfully!";
+            } else {
+              document.getElementById("successMsg").innerText =
+                "Error sending onboarding. Check Firebase.";
+            }
+          } catch (err) {
+            document.getElementById("successMsg").innerText =
+              "Network error. Check your Cloud Function.";
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Nationwide Dispatching</strong> · Phone: (619) 856-9888 · Email: nationwidedispatching@outlook.com<br />
+    © 2026 Nationwide Dispatching — All Rights Reserved
+  </footer>
+</body>
+</html>
