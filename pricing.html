@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pricing | Nationwide Dispatching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050505;
+      --gold: #ffd700;
+      --gold-soft: #e6c45a;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
+      color: var(--text);
+      margin: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,215,0,0.35);
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      border-color: rgba(255,215,0,0.7);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255,215,0,0.7);
+    }
+
+    .nav-cta {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow:
+        0 10px 18px rgba(0,0,0,0.9),
+        0 0 16px rgba(255,215,0,0.8);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .pricing-section {
+      margin-bottom: 50px;
+    }
+
+    .pricing-title {
+      font-size: 22px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .pricing-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .price-card {
+      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+      border-radius: 14px;
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 16px 32px rgba(0,0,0,0.9),
+        0 0 12px rgba(0,0,0,0.8);
+    }
+
+    .price-card h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: var(--gold);
+    }
+
+    .price-rate {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold-soft);
+      margin-bottom: 10px;
+    }
+
+    .price-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .price-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .price-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div style="color: var(--gold); font-weight: 600; font-size: 18px;">
+        Nationwide Dispatching
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Dispatch Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="resources.html">Dispatch Resources</a>
+        <a href="onboarding.html">Onboarding</a>
+        <a href="contact.html">Contact</a>
+        <a class="nav-cta" href="dispatcher-login.html">Dispatcher Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <div class="page-kicker">Dispatch Pricing</div>
+      <div class="page-title">Simple, Transparent, Carrier‑First Pricing</div>
+      <div class="page-sub">
+        Our dispatch pricing is built to be simple, predictable, and fair.  
+        No forced dispatch. No setup fees. No monthly subscription.  
+        You only pay when freight is booked — and every load is approved by you.
+      </div>
+    </div>
+
+    <section class="pricing-section">
+      <div class="pricing-title">Pricing Tiers</div>
+      <div class="pricing-sub">
+        Your dispatch fee depends on equipment type, authority age, and the level of support required.
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>New Authority</h3>
+          <div class="price-rate">7%</div>
+          <p>
+            For carriers with DOT authority under 6 months.  
+            Includes extra broker setup, lane planning, and operational support.
+          </p>
+          <a class="price-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Established Carrier</h3>
+          <div class="price-rate">6%</div>
+          <p>
+            Our most common tier.  
+            Full dispatch support, rate negotiation, paperwork, and lane strategy.
+          </p>
+          <a class="price-link" href="services.html">View services →</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Power Only</h3>
+          <div class="price-rate">8%</div>
+          <p>
+            Trailer‑specific load planning, compatibility checks, and  
+            additional coordination for power‑only freight.
+          </p>
+          <a class="price-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+        <div class="price-card">
+          <h3>Class A Hot Shot</h3>
+          <div class="price-rate">8%</div>
+          <p>
+            For qualifying Class A CDL hot shot carriers meeting  
+            trailer, payload, authority, and ELD requirements.
+          </p>
+          <a class="price-link" href="onboarding.html">Check eligibility →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="pricing-title">What’s Included</div>
+      <div class="pricing-sub">
+        Every dispatch plan includes full support from booking to delivery.
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Load Search</h3>
+          <p>Freight reviewed for timing, lane fit, and rate potential.</p>
+        </div>
+
+        <div class="price-card">
+          <h3>Rate Negotiation</h3>
+          <p>Stronger RPM through disciplined negotiation and broker communication.</p>
+        </div>
+
+        <div class="price-card">
+          <h3>Broker Setup</h3>
+          <p>Packets, COIs, W‑9s, and setup documents handled for you.</p>
+        </div>
+
+        <div class="price-card">
+          <h3>Check Calls</h3>
+          <p>Appointment updates, delay handling, and proactive communication.</p>
+        </div>
+
+        <div class="price-card">
+          <h3>Paperwork</h3>
+          <p>BOLs, PODs, lumper receipts, and billing documents organized.</p>
+        </div>
+
+        <div class="price-card">
+          <h3>No Forced Dispatch</h3>
+          <p>You approve every load before booking — always.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="pricing-title">Ready to Begin?</div>
+      <div class="pricing-sub">
+        Start onboarding, compare services, or contact dispatch directly.
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Start Onboarding</h3>
+          <p>Send your details directly to dispatch.</p>
+          <a class="price-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+
+        <div class="price-card">
+          <h3>View Services</h3>
+          <p>See everything included in our dispatch workflow.</p>
+          <a class="price-link" href="services.html">View services →</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Contact Dispatch</h3>
+          <p>Ask questions or request a call — messages go straight to Outlook.</p>
+          <a class="price-link" href="contact.html">Contact us →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Nationwide Dispatching</strong> · Phone: (619) 856-9888 · Email: nationwidedispatching@outlook.com<br />
+    © 2026 Nationwide Dispatching — All Rights Reserved
+  </footer>
+</body>
+</html>
