@@ -26,7 +26,6 @@
       min-height: 100vh;
     }
 
-    /* SIDEBAR */
     .sidebar {
       width: 240px;
       background: #050505;
@@ -42,14 +41,6 @@
       margin-bottom: 20px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-    }
-
-    .sidebar-section-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      margin: 18px 0 8px;
     }
 
     .sidebar-link {
@@ -74,7 +65,6 @@
       font-weight: 600;
     }
 
-    /* MAIN AREA */
     .main {
       flex: 1;
       display: flex;
@@ -98,19 +88,10 @@
       letter-spacing: 0.12em;
     }
 
-    .topbar-right {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .topbar-right span {
-      margin-left: 10px;
-    }
-
     .content {
       padding: 20px;
       display: grid;
-      grid-template-columns: 2.2fr 1.8fr;
+      grid-template-columns: 2fr 2fr;
       gap: 20px;
     }
 
@@ -124,26 +105,14 @@
         0 0 12px rgba(0,0,0,0.8);
     }
 
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
     .panel-title {
       font-size: 15px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--gold);
+      margin-bottom: 10px;
     }
 
-    .panel-sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* TABLES */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -176,27 +145,11 @@
       letter-spacing: 0.08em;
     }
 
-    .status-driving {
-      background: rgba(76,175,80,0.15);
-      color: var(--success);
-    }
+    .status-driving { background: rgba(76,175,80,0.15); color: var(--success); }
+    .status-off { background: rgba(176,176,176,0.15); color: var(--muted); }
+    .status-on { background: rgba(255,215,0,0.15); color: var(--gold-soft); }
+    .status-violation { background: rgba(255,107,107,0.15); color: var(--danger); }
 
-    .status-off {
-      background: rgba(176,176,176,0.15);
-      color: var(--muted);
-    }
-
-    .status-on {
-      background: rgba(255,215,0,0.15);
-      color: var(--gold-soft);
-    }
-
-    .status-violation {
-      background: rgba(255,107,107,0.15);
-      color: var(--danger);
-    }
-
-    /* HOS BAR */
     .hos-bar {
       width: 100%;
       height: 8px;
@@ -221,184 +174,93 @@
   <div class="sidebar">
     <div class="sidebar-title">Nationwide Dispatching</div>
 
-    <div class="sidebar-section-title">Navigation</div>
     <a href="index.html" class="sidebar-link">Home</a>
-    <a href="services.html" class="sidebar-link">Dispatch Services</a>
-    <a href="pricing.html" class="sidebar-link">Pricing</a>
-    <a href="resources.html" class="sidebar-link">Dispatch Resources</a>
-    <a href="onboarding.html" class="sidebar-link">Onboarding</a>
-    <a href="contact.html" class="sidebar-link">Contact</a>
-    <a href="dispatcher-login.html" class="sidebar-link">Dispatcher Login</a>
+    <a href="#" id="logoutBtn" class="sidebar-link">Logout</a>
     <a href="dashboard.html" class="sidebar-link active">ELD Dashboard</a>
-
-    <div class="sidebar-section-title">Dispatcher</div>
-    <span style="font-size: 13px; color: var(--muted);">
-      Logged in dispatcher<br />
-      (Firebase Auth)
-    </span>
   </div>
 
   <div class="main">
     <div class="topbar">
       <div class="topbar-left">ELD & Dispatch Dashboard</div>
-      <div class="topbar-right">
-        <span>Live view</span>
-        <span>Last refresh: <span id="lastRefresh">Just now</span></span>
-      </div>
     </div>
 
     <div class="content">
-      <!-- LEFT: DRIVERS / HOS -->
       <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Drivers & HOS</div>
-            <div class="panel-sub">Duty status, hours remaining, and quick ELD overview.</div>
-          </div>
-        </div>
-
+        <div class="panel-title">Drivers & HOS</div>
         <table id="driversTable">
           <thead>
             <tr>
               <th>Driver</th>
               <th>Status</th>
-              <th>Drive Hrs Left</th>
-              <th>On‑Duty Hrs Left</th>
+              <th>Drive Left</th>
+              <th>On Duty Left</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Filled by JS -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
-      <!-- RIGHT: LOADS / DISPATCH -->
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Active Loads</div>
-            <div class="panel-sub">Pickup, delivery, RPM, and assigned driver.</div>
-          </div>
-        </div>
 
+      <div class="panel">
+        <div class="panel-title">Active Loads</div>
         <table id="loadsTable">
           <thead>
             <tr>
               <th>Load</th>
-              <th>Pickup → Delivery</th>
+              <th>Lane</th>
               <th>Driver</th>
               <th>RPM</th>
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- Filled by JS -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    <!-- SECOND ROW: SUMMARY PANELS -->
-    <div class="content" style="grid-template-columns: 1.4fr 1.6fr;">
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Dispatch Summary</div>
-            <div class="panel-sub">Quick overview of trucks, loads, and alerts.</div>
-          </div>
-        </div>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDXNZRDMmUJXoqMsFwluElbrSICN65Kmvc",
+        authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
+        projectId: "nationwide-dispatching-7b346",
+        storageBucket: "nationwide-dispatching-7b346.appspot.com",
+        messagingSenderId: "280010805970",
+        appId: "1:280010805970:web:42989433f02939aca3930b"
+      };
 
-        <table>
-          <tbody>
-            <tr>
-              <td>Total Drivers</td>
-              <td id="summaryDrivers"></td>
-            </tr>
-            <tr>
-              <td>Active Loads</td>
-              <td id="summaryLoads"></td>
-            </tr>
-            <tr>
-              <td>HOS Warnings</td>
-              <td id="summaryHosWarnings"></td>
-            </tr>
-            <tr>
-              <td>RPM Average</td>
-              <td id="summaryRpmAvg"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Notes</div>
-            <div class="panel-sub">Quick dispatch notes for today.</div>
-          </div>
-        </div>
+      // LOGOUT BUTTON
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        await signOut(auth);
+        window.location.href = "dispatcher-login.html";
+      });
 
-        <ul style="font-size: 13px; color: var(--muted); padding-left: 18px; margin: 0;">
-          <li>Monitor HOS on long‑haul drivers approaching violation.</li>
-          <li>Confirm appointment times for morning deliveries.</li>
-          <li>Review RPM on outbound loads from low‑rate markets.</li>
-        </ul>
-      </div>
-    </div>
-
-    <script>
-      // Dummy data for now — later you plug in Firebase Firestore/Realtime DB
-      const drivers = [
-        {
-          name: "Driver 1",
-          status: "DRIVING",
-          driveLeft: 3.5,
-          onDutyLeft: 5.0
-        },
-        {
-          name: "Driver 2",
-          status: "ON DUTY",
-          driveLeft: 6.0,
-          onDutyLeft: 8.0
-        },
-        {
-          name: "Driver 3",
-          status: "OFF DUTY",
-          driveLeft: 11.0,
-          onDutyLeft: 14.0
-        },
-        {
-          name: "Driver 4",
-          status: "VIOLATION",
-          driveLeft: 0.0,
-          onDutyLeft: 0.0
+      // AUTH PROTECTION
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "dispatcher-login.html";
+        } else {
+          loadData();
         }
-      ];
+      });
 
-      const loads = [
-        {
-          id: "Load 1001",
-          lane: "San Diego, CA → Phoenix, AZ",
-          driver: "Driver 1",
-          rpm: 2.75,
-          status: "In Transit"
-        },
-        {
-          id: "Load 1002",
-          lane: "Dallas, TX → Houston, TX",
-          driver: "Driver 2",
-          rpm: 3.10,
-          status: "Booked"
-        },
-        {
-          id: "Load 1003",
-          lane: "Atlanta, GA → Charlotte, NC",
-          driver: "Driver 3",
-          rpm: 2.40,
-          status: "Delivered"
-        }
-      ];
+      async function loadData() {
+        const driversSnap = await getDocs(collection(db, "drivers"));
+        const loadsSnap = await getDocs(collection(db, "loads"));
 
-      function renderDrivers() {
+        const drivers = driversSnap.docs.map(doc => doc.data());
+        const loads = loadsSnap.docs.map(doc => doc.data());
+
+        renderDrivers(drivers);
+        renderLoads(loads);
+      }
+
+      function renderDrivers(drivers) {
         const tbody = document.querySelector("#driversTable tbody");
         tbody.innerHTML = "";
 
@@ -415,22 +277,20 @@
             <td>
               ${d.name}
               <div class="hos-bar">
-                <div class="${d.driveLeft <= 1 ? "hos-fill hos-fill-danger" : "hos-fill"}"
-                     style="width: ${Math.min(100, (d.driveLeft / 11) * 100)}%;"></div>
+                <div class="${d.driveLeft <= 1 ? "hos-fill-danger" : "hos-fill"}"
+                     style="width:${Math.min(100, (d.driveLeft / 11) * 100)}%;"></div>
               </div>
             </td>
-            <td>
-              <span class="status-pill ${statusClass}">${d.status}</span>
-            </td>
-            <td>${d.driveLeft.toFixed(1)} hrs</td>
-            <td>${d.onDutyLeft.toFixed(1)} hrs</td>
+            <td><span class="status-pill ${statusClass}">${d.status}</span></td>
+            <td>${d.driveLeft} hrs</td>
+            <td>${d.onDutyLeft} hrs</td>
           `;
 
           tbody.appendChild(tr);
         });
       }
 
-      function renderLoads() {
+      function renderLoads(loads) {
         const tbody = document.querySelector("#loadsTable tbody");
         tbody.innerHTML = "";
 
@@ -446,30 +306,6 @@
           tbody.appendChild(tr);
         });
       }
-
-      function renderSummary() {
-        document.getElementById("summaryDrivers").innerText = drivers.length;
-        document.getElementById("summaryLoads").innerText = loads.length;
-
-        const hosWarnings = drivers.filter(d => d.driveLeft <= 1).length;
-        document.getElementById("summaryHosWarnings").innerText = hosWarnings;
-
-        const avgRpm = loads.reduce((sum, l) => sum + l.rpm, 0) / loads.length;
-        document.getElementById("summaryRpmAvg").innerText = `$${avgRpm.toFixed(2)}/mi`;
-
-        document.getElementById("lastRefresh").innerText = "Just now";
-      }
-
-      // Initial render
-      renderDrivers();
-      renderLoads();
-      renderSummary();
-
-      // Later: replace dummy data with Firebase
-      // Example idea (not active yet):
-      // 1) Use Firebase SDK in <script type="module">
-      // 2) Listen to Firestore collections: "drivers", "loads"
-      // 3) Map docs to drivers[] and loads[] then call renderDrivers(), renderLoads(), renderSummary()
     </script>
   </div>
 </body>
