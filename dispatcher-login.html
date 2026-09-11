@@ -161,11 +161,9 @@
       <div id="errorMsg" class="error"></div>
     </form>
     <script type="module">
-      // Firebase SDK
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+      import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-      // Your Firebase Config
       const firebaseConfig = {
         apiKey: "AIzaSyXXXXXX",
         authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
@@ -175,9 +173,14 @@
         appId: "1:1234567890:web:abcdef123456"
       };
 
-
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          window.location.href = "dashboard.html";
+        }
+      });
 
       document.getElementById("loginForm").addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -187,10 +190,7 @@
 
         try {
           await signInWithEmailAndPassword(auth, email, password);
-
-          // Redirect to dashboard
           window.location.href = "dashboard.html";
-
         } catch (error) {
           document.getElementById("errorMsg").innerText =
             "Invalid login. Check your email or password.";
@@ -204,4 +204,4 @@
     © 2026 Nationwide Dispatching — All Rights Reserved
   </footer>
 </body>
-</html> 
+</html>
