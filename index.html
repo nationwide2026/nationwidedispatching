@@ -2,16 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Nationwide Dispatching | Truck Dispatch & ELD Services</title>
+  <title>Nationwide Dispatching | Carrier-First Truck Dispatch Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
+    :root {
+      --bg: #050505;
+      --bg-alt: #0b0b0b;
+      --gold: #ffd700;
+      --gold-soft: #e6c45a;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --accent: #1f2933;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: radial-gradient(circle at top, #1a1a1a 0%, #050505 55%, #000 100%);
-      color: #f5f5f5;
-      overflow-x: hidden;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
+      color: var(--text);
     }
 
     .glow-bg {
@@ -19,139 +33,294 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 10% 20%, rgba(0, 255, 180, 0.15) 0, transparent 50%),
-        radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.18) 0, transparent 55%),
-        radial-gradient(circle at 50% 100%, rgba(0, 140, 255, 0.18) 0, transparent 55%);
+        radial-gradient(circle at 10% 0%, rgba(255, 215, 0, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.08) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(255, 215, 0, 0.12) 0, transparent 60%);
       z-index: -1;
     }
 
     header {
-      padding: 18px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.6);
-      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.35);
     }
 
-    .logo {
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .logo-circle {
-      width: 46px;
-      height: 46px;
+    .brand-logo {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background: radial-gradient(circle, #ffd700 0%, #b8860b 40%, #111 100%);
+      background: radial-gradient(circle, var(--gold) 0%, #b8860b 40%, #111 100%);
       box-shadow:
-        0 0 18px rgba(255, 215, 0, 0.8),
-        inset 0 0 10px rgba(0, 0, 0, 0.8);
+        0 0 18px rgba(255, 215, 0, 0.9),
+        inset 0 0 10px rgba(0, 0, 0, 0.9);
     }
 
-    .logo-text {
-      font-size: 22px;
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 20px;
       font-weight: 600;
-      color: #ffd700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     nav a {
-      margin-left: 18px;
-      color: #f5f5f5;
+      font-size: 14px;
+      color: var(--text);
       text-decoration: none;
-      font-size: 15px;
       padding: 8px 14px;
       border-radius: 999px;
-      transition: 0.25s;
       border: 1px solid transparent;
+      transition: 0.2s;
     }
 
     nav a:hover {
-      border-color: rgba(255, 215, 0, 0.6);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
-      color: #ffd700;
+      border-color: rgba(255, 215, 0, 0.7);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
     }
 
-    .hero {
-      padding: 80px 20px 50px;
-      text-align: center;
-    }
-
-    .hero-title {
-      font-size: 42px;
-      color: #ffd700;
-      text-shadow:
-        0 0 18px rgba(255, 215, 0, 0.9),
-        0 0 6px rgba(255, 255, 255, 0.4);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .hero-sub {
-      font-size: 18px;
-      color: #ccc;
-      max-width: 720px;
-      margin: 0 auto 30px;
-      line-height: 1.6;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 10px;
-    }
-
-    .hero-buttons a {
-      padding: 12px 22px;
-      font-size: 16px;
-      border-radius: 999px;
-      text-decoration: none;
+    .nav-cta {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
       color: #000;
-      background: radial-gradient(circle at top, #ffd700 0%, #ffb000 40%, #8b6508 100%);
+      font-weight: 600;
       box-shadow:
         0 10px 18px rgba(0, 0, 0, 0.9),
         0 0 16px rgba(255, 215, 0, 0.8);
-      transition: 0.25s;
     }
 
-    .hero-buttons a:hover {
-      transform: translateY(-3px);
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+
+    .hero-left h1 {
+      font-size: 40px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--gold);
+      text-shadow:
+        0 0 18px rgba(255, 215, 0, 0.9),
+        0 0 6px rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-left p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: var(--gold-soft);
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow:
+        0 10px 18px rgba(0, 0, 0, 0.9),
+        0 0 16px rgba(255, 215, 0, 0.8);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
       box-shadow:
         0 14px 24px rgba(0, 0, 0, 0.95),
         0 0 20px rgba(255, 215, 0, 1);
     }
 
+    .btn-outline {
+      border-color: rgba(255, 215, 0, 0.6);
+      color: var(--gold-soft);
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 215, 0, 0.08);
+      border-color: rgba(255, 215, 0, 0.9);
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hero-right {
+      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+      border-radius: 18px;
+      padding: 18px 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 18px 32px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-right h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-right p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stat {
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 16px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .hero-contact {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .hero-contact strong {
+      color: var(--gold-soft);
+    }
+
     .section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 20px;
+      margin-bottom: 50px;
+    }
+
+    .section-header {
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
     .section-title {
       font-size: 22px;
-      margin-bottom: 10px;
-      color: #ffd700;
+      color: var(--gold);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      margin-bottom: 6px;
     }
 
     .section-sub {
-      font-size: 15px;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 20px;
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 620px;
     }
 
     .cards {
@@ -164,30 +333,29 @@
       background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
       border-radius: 14px;
       padding: 16px 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       box-shadow:
         0 16px 32px rgba(0, 0, 0, 0.9),
         0 0 12px rgba(0, 0, 0, 0.8);
     }
 
     .card h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
-      color: #f5f5f5;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text);
     }
 
     .card p {
-      margin: 0;
-      font-size: 14px;
-      color: #bbb;
+      font-size: 13px;
+      color: var(--muted);
       line-height: 1.5;
     }
 
     .card-link {
       display: inline-block;
       margin-top: 10px;
-      font-size: 14px;
-      color: #ffd700;
+      font-size: 13px;
+      color: var(--gold-soft);
       text-decoration: none;
     }
 
@@ -195,86 +363,36 @@
       text-decoration: underline;
     }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 20px;
-    }
-
-    .contact-box {
-      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
-      border-radius: 14px;
-      padding: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow:
-        0 16px 32px rgba(0, 0, 0, 0.9),
-        0 0 12px rgba(0, 0, 0, 0.8);
-    }
-
-    .contact-box h3 {
-      margin-top: 0;
-      font-size: 18px;
-      color: #f5f5f5;
-    }
-
-    .contact-box p {
-      font-size: 14px;
-      color: #bbb;
-      line-height: 1.5;
-    }
-
-    .contact-form label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-      color: #ddd;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 8px 10px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: #050505;
-      color: #f5f5f5;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: rgba(255, 215, 0, 0.7);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-    }
-
-    .contact-form button {
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      font-size: 14px;
-      cursor: pointer;
-      color: #000;
-      background: radial-gradient(circle at top, #ffd700 0%, #ffb000 40%, #8b6508 100%);
-      box-shadow:
-        0 10px 18px rgba(0, 0, 0, 0.9),
-        0 0 16px rgba(255, 215, 0, 0.8);
-    }
-
-    .contact-form button:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 14px 24px rgba(0, 0, 0, 0.95),
-        0 0 20px rgba(255, 215, 0, 1);
-    }
-
     footer {
+      border-top: 1px solid rgba(255, 215, 0, 0.25);
+      padding: 20px;
+      font-size: 12px;
+      color: var(--muted);
       text-align: center;
-      padding: 30px 20px 40px;
-      color: #777;
-      font-size: 13px;
-      margin-top: 30px;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    footer strong {
+      color: var(--gold-soft);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        justify-content: flex-start;
+      }
+      .hero-left h1 {
+        font-size: 30px;
+      }
     }
   </style>
 </head>
@@ -282,181 +400,160 @@
   <div class="glow-bg"></div>
 
   <header>
-    <div class="logo">
-      <div class="logo-circle"></div>
-      <div class="logo-text">Nationwide Dispatching</div>
-    </div>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <div class="brand-title">Nationwide Dispatching</div>
+          <div class="brand-sub">Carrier-First Truck Dispatch</div>
+        </div>
+      </div>
 
-    <nav>
-      <a href="dashboard.html">ELD Dashboard</a>
-      <a href="loads.html">Loads</a>
-      <a href="carriers.html">Carriers</a>
-      <a href="documents.html">Documents</a>
-      <a href="admin.html">Admin</a>
-      <a href="dispatcher-login.html">Dispatcher Login</a>
-    </nav>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Dispatch Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="resources.html">Dispatch Resources</a>
+        <a href="onboarding.html">Onboarding</a>
+        <a href="contact.html">Contact</a>
+        <a class="nav-cta" href="dispatcher-login.html">Dispatcher Login</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-title">Professional Truck Dispatch Services</div>
-    <div class="hero-sub">
-      Nationwide Dispatching provides reliable, efficient, and real‑time dispatch solutions for carriers and drivers across the country.
-      Access your ELD dashboard, manage loads, and stay connected with your dispatcher — all in one powerful system.
-    </div>
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Carrier-First Truck Dispatch, Built for Real Operations</h1>
+        <p>
+          Nationwide Dispatching provides premium, carrier-focused dispatch services with real-time visibility into loads, drivers,
+          and ELD status. Black & gold, modern, and built to feel like the Motive ecosystem—without losing your identity.
+        </p>
 
-    <div class="hero-buttons">
-      <a href="dispatcher-login.html">Dispatcher Login</a>
-      <a href="dashboard.html">Driver Dashboard</a>
-    </div>
-  </section>
-  <section class="section">
-    <div class="section-title">About Nationwide Dispatching</div>
-    <div class="two-column">
-      <div>
+        <div class="hero-badges">
+          <div class="badge">Nationwide Coverage</div>
+          <div class="badge">Carrier-First Approach</div>
+          <div class="badge">ELD-Driven Planning</div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="onboarding.html">Onboard Your Fleet</a>
+          <a class="btn btn-outline" href="contact.html">Talk to Dispatch</a>
+        </div>
+
+        <div class="hero-meta">
+          Phone: <strong>(619) 856-9888</strong> · Email: <strong>nationwidedispatching@outlook.com</strong>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <h2>Live Dispatch Snapshot</h2>
+        <p>
+          A Motive-inspired dashboard view—drivers, loads, and duty status in one premium black & gold interface.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-label">Active Drivers</div>
+            <div class="stat-value">12</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Live Loads</div>
+            <div class="stat-value">27</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">On-Time Rate</div>
+            <div class="stat-value">98%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Avg RPM</div>
+            <div class="stat-value">$2.85</div>
+          </div>
+        </div>
+
+        <p class="hero-contact">
+          Dispatcher access is available via secure login. Drivers see a simplified ELD view; dispatch sees the full picture.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-kicker">Dispatch Services</div>
+        <div class="section-title">Built Around Carriers, Not Just Loads</div>
         <div class="section-sub">
-          We specialize in professional truck dispatch services for carriers and independent drivers across the country.
-          Our team monitors your loads, communicates with shippers and receivers, and keeps drivers informed in real time.
+          We don’t just chase freight—we build lanes, relationships, and predictable revenue for carriers and owner-operators.
         </div>
-        <p style="font-size:14px;color:#bbb;line-height:1.6;">
-          Whether you run a small fleet or operate as an owner‑operator, Nationwide Dispatching helps you:
-          <br><br>
-          • Secure consistent freight<br>
-          • Reduce empty miles<br>
-          • Stay on top of appointments and check‑ins<br>
-          • Maintain ELD duty status visibility<br>
-          • Keep documents organized and accessible
-        </p>
       </div>
-      <div>
+
+      <div class="cards">
         <div class="card">
-          <h3>Why Work With Us?</h3>
+          <h3>Load Planning & Lane Strategy</h3>
           <p>
-            We focus on clear communication, reliable scheduling, and transparent operations.
-            Our dispatch platform connects drivers, carriers, and back office in one system.
+            We help you build consistent lanes, reduce deadhead, and keep trucks moving in the right markets at the right times.
           </p>
+          <a class="card-link" href="services.html">View all dispatch services →</a>
+        </div>
+
+        <div class="card">
+          <h3>Carrier Support & Communication</h3>
+          <p>
+            Clear, proactive communication with drivers, carriers, shippers, and receivers—no more guessing where your truck is.
+          </p>
+          <a class="card-link" href="contact.html">Talk to dispatch →</a>
+        </div>
+
+        <div class="card">
+          <h3>ELD-Driven Operations</h3>
+          <p>
+            We plan around hours-of-service, not against them. Duty status and log history inform every dispatch decision.
+          </p>
+          <a class="card-link" href="dashboard.html">Preview dashboard →</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="section-title">What We Do</div>
-    <div class="section-sub">
-      Core services designed to support your trucking business from dispatch to delivery.
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Load Planning & Dispatch</h3>
-        <p>We help plan routes, book loads, and coordinate pickup and delivery times with shippers and receivers.</p>
-        <a class="card-link" href="loads.html">Go to Loads →</a>
+    <section class="section">
+      <div class="section-header">
+        <div class="section-kicker">Next Steps</div>
+        <div class="section-title">Ready to Move Your Trucks Smarter?</div>
+        <div class="section-sub">
+          Whether you’re onboarding a single truck or a fleet, Nationwide Dispatching gives you a structured, premium experience
+          from first contact to live dispatch.
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Carrier Management</h3>
-        <p>Maintain carrier profiles, lanes, and capacity to match freight with the right equipment and partners.</p>
-        <a class="card-link" href="carriers.html">View Carriers →</a>
+      <div class="cards">
+        <div class="card">
+          <h3>Onboard Your Fleet</h3>
+          <p>
+            Share your lanes, equipment, and goals. We’ll review and respond directly to your email with a tailored dispatch plan.
+          </p>
+          <a class="card-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+
+        <div class="card">
+          <h3>Ask a Question</h3>
+          <p>
+            Not sure if dispatching is right for you? Use the contact form to reach us—every message goes straight to our Outlook.
+          </p>
+          <a class="card-link" href="contact.html">Open contact form →</a>
+        </div>
+
+        <div class="card">
+          <h3>Dispatcher Login</h3>
+          <p>
+            Existing dispatchers can log in to access the ELD-style dashboard, loads, and driver status in real time.
+          </p>
+          <a class="card-link" href="dispatcher-login.html">Go to dispatcher login →</a>
+        </div>
       </div>
-
-      <div class="card">
-        <h3>ELD Monitoring</h3>
-        <p>Track driver duty status and log history through the ELD dashboard to support compliance and planning.</p>
-        <a class="card-link" href="dashboard.html">Open ELD Dashboard →</a>
-      </div>
-
-      <div class="card">
-        <h3>Document Control</h3>
-        <p>Store rate confirmations, BOLs, invoices, and compliance documents in one organized system.</p>
-        <a class="card-link" href="documents.html">Open Documents →</a>
-      </div>
-
-      <div class="card">
-        <h3>Admin & Configuration</h3>
-        <p>Manage users, permissions, and system settings to fit your operation’s workflow.</p>
-        <a class="card-link" href="admin.html">Go to Admin →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-title">Driver & Dispatcher Access</div>
-    <div class="section-sub">
-      Separate portals for drivers and dispatchers, all connected to the same real‑time data.
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Driver ELD View</h3>
-        <p>Drivers can see their current duty status and log history from the dashboard.</p>
-        <a class="card-link" href="dashboard.html">Driver Dashboard →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-title">Request a Call & Contact</div>
-    <div class="contact-grid">
-      <div class="contact-box">
-        <h3>Request a Call</h3>
-        <p>
-          Want to learn more about our dispatch services or onboard your trucks?
-          Fill out this form and a member of our team will reach out.
-        </p>
-        <form class="contact-form">
-          <label for="name">Name</label>
-          <input id="name" type="text" placeholder="Your name" />
-
-          <label for="phone">Phone</label>
-          <input id="phone" type="text" placeholder="Best number to reach you" />
-
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Your email" />
-
-          <label for="details">How can we help?</label>
-          <textarea id="details" rows="4" placeholder="Tell us about your trucks, lanes, or dispatch needs"></textarea>
-
-          <button type="button">Submit Request (static demo)</button>
-        </form>
-        <p style="font-size:12px;color:#777;margin-top:8px;">
-          This form is currently static. You can connect it later to email or a backend.
-        </p>
-      </div>
-
-      <div class="contact-box">
-        <h3>Contact Information</h3>
-        <p>
-          Phone: <strong>(619) 856‑9888</strong><br>
-          Email: <strong>nationwidedispatching@outlook.com</strong><br><br>
-          Operating Hours:<br>
-          Monday – Friday: 8:00 AM – 6:00 PM<br>
-          Saturday: By appointment
-        </p>
-        <p style="font-size:14px;color:#bbb;">
-          We work with carriers and drivers nationwide, focusing on reliable communication and long‑term partnerships.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- DISPATCH LOGIN AT THE END -->
-  <section class="section">
-    <div class="section-title">Dispatcher Login</div>
-    <div class="section-sub">
-      Secure access for dispatchers to manage loads, drivers, and ELD status.
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <h3>Dispatcher Portal</h3>
-        <p>Log in to manage loads, drivers, and real‑time ELD data.</p>
-        <a class="card-link" href="dispatcher-login.html">Go to Dispatcher Login →</a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
+    <strong>Nationwide Dispatching</strong> · Phone: (619) 856-9888 · Email: nationwidedispatching@outlook.com<br />
     © 2026 Nationwide Dispatching — All Rights Reserved
   </footer>
-
 </body>
-</html> 
+</html>
