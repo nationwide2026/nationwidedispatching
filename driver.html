@@ -102,9 +102,16 @@
 
     let driverName = "";
 
+    // Normalize driver names so "Driver 1", "driver1", "driver 1" all become "Driver1"
+    function normalizeName(name) {
+      return name.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]/g, "");
+    }
+
     async function loginDriver() {
-      driverName = document.getElementById("driverName").value.trim();
-      if (!driverName) return alert("Enter your name");
+      let rawName = document.getElementById("driverName").value.trim();
+      if (!rawName) return alert("Enter your name");
+
+      driverName = normalizeName(rawName);
 
       document.getElementById("driverPanel").style.display = "block";
 
@@ -117,7 +124,7 @@
 
       loads.forEach(doc => {
         const data = doc.data();
-        if (data.driver === driverName) {
+        if (normalizeName(data.driver) === driverName) {
           assigned = `${data.id} — ${data.lane} — ${data.status}`;
         }
       });
