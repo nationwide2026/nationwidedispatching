@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dispatch Resources | Nationwide Dispatching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050505;
+      --gold: #ffd700;
+      --gold-soft: #e6c45a;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
+      color: var(--text);
+      margin: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,215,0,0.35);
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      border-color: rgba(255,215,0,0.7);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(255,215,0,0.7);
+    }
+
+    .nav-cta {
+      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
+      color: #000;
+      font-weight: 600;
+      box-shadow:
+        0 10px 18px rgba(0,0,0,0.9),
+        0 0 16px rgba(255,215,0,0.8);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
+      border-radius: 14px;
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 16px 32px rgba(0,0,0,0.9),
+        0 0 12px rgba(0,0,0,0.8);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    .rpm-box {
+      background: #0b0b0b;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,215,0,0.3);
+      margin-top: 10px;
+    }
+
+    .rpm-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #050505;
+      color: var(--text);
+    }
+
+    .rpm-box button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 999px;
+      border: none;
+      background: var(--gold);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .rpm-result {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--gold-soft);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-inner">
+      <div style="color: var(--gold); font-weight: 600; font-size: 18px;">
+        Nationwide Dispatching
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Dispatch Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="resources.html">Dispatch Resources</a>
+        <a href="onboarding.html">Onboarding</a>
+        <a href="contact.html">Contact</a>
+        <a class="nav-cta" href="dispatcher-login.html">Dispatcher Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <div class="page-kicker">Dispatch Resources</div>
+      <div class="page-title">Tools & Knowledge for Smarter Trucking</div>
+      <div class="page-sub">
+        A curated set of tools, calculators, checklists, and guides designed to help  
+        carriers and owner‑operators make better decisions on the road and in the office.
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-title">RPM Calculator</div>
+      <div class="section-sub">
+        Quickly calculate your rate‑per‑mile for any load.
+      </div>
+
+      <div class="rpm-box">
+        <input id="rate" type="number" placeholder="Enter load pay ($)" />
+        <input id="miles" type="number" placeholder="Enter total miles" />
+        <button onclick="calcRPM()">Calculate RPM</button>
+        <div id="rpmResult" class="rpm-result"></div>
+      </div>
+
+      <script>
+        function calcRPM() {
+          const rate = parseFloat(document.getElementById('rate').value);
+          const miles = parseFloat(document.getElementById('miles').value);
+          if (!rate || !miles || miles <= 0) {
+            document.getElementById('rpmResult').innerText = "Enter valid numbers.";
+            return;
+          }
+          const rpm = (rate / miles).toFixed(2);
+          document.getElementById('rpmResult').innerText = "RPM: $" + rpm;
+        }
+      </script>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Broker Packet Checklist</div>
+      <div class="section-sub">
+        Make sure your carrier packet is complete before booking freight.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>W‑9 Form</h3>
+          <p>Required for broker setup and payment processing.</p>
+        </div>
+
+        <div class="card">
+          <h3>Certificate of Insurance</h3>
+          <p>Ensure liability and cargo coverage meet broker requirements.</p>
+        </div>
+
+        <div class="card">
+          <h3>NOA / Carrier Agreement</h3>
+          <p>Review terms carefully before signing.</p>
+        </div>
+
+        <div class="card">
+          <h3>MC/DOT Documents</h3>
+          <p>Authority, safety rating, and compliance documentation.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-title">Equipment Requirements</div>
+      <div class="section-sub">
+        Minimum standards for safe and compliant operation.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Dry Van</h3>
+          <p>53' preferred · No major damage · Seals intact · ELD required.</p>
+        </div>
+
+        <div class="card">
+          <h3>Reefer</h3>
+          <p>Temperature‑controlled · Clean interior · Fuel maintained.</p>
+        </div>
+
+        <div class="card">
+          <h3>Flatbed</h3>
+          <p>Straps · Chains · Tarps · Securement equipment ready.</p>
+        </div>
+
+        <div class="card">
+          <h3>Hot Shot</h3>
+          <p>CDL or Non‑CDL · DOT compliant · Trailer inspected.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Dispatch Tools</div>
+      <div class="section-sub">
+        Useful tools for carriers and dispatchers.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Load Boards</h3>
+          <p>DAT · Truckstop · 123Loadboard · Direct shipper portals.</p>
+        </div>
+
+        <div class="card">
+          <h3>ELD Systems</h3>
+          <p>Motive · Samsara · Garmin · KeepTruckin.</p>
+        </div>
+
+        <div class="card">
+          <h3>Mapping Tools</h3>
+          <p>TruckerPath · Google Maps · Motive Navigation.</p>
+        </div>
+
+        <div class="card">
+          <h3>Document Tools</h3>
+          <p>CamScanner · Adobe Scan · Cloud storage.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Next Steps</div>
+      <div class="section-sub">
+        Start onboarding, compare pricing, or contact dispatch directly.
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Start Onboarding</h3>
+          <p>Send your details directly to dispatch.</p>
+          <a class="card-link" href="onboarding.html">Start onboarding →</a>
+        </div>
+
+        <div class="card">
+          <h3>View Pricing</h3>
+          <p>Review dispatch fees for each equipment type.</p>
+          <a class="card-link" href="pricing.html">View pricing →</a>
+        </div>
+
+        <div class="card">
+          <h3>Contact Dispatch</h3>
+          <p>Ask questions or request a call — messages go straight to Outlook.</p>
+          <a class="card-link" href="contact.html">Contact us →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Nationwide Dispatching</strong> · Phone: (619) 856-9888 · Email: nationwidedispatching@outlook.com<br />
+    © 2026 Nationwide Dispatching — All Rights Reserved
+  </footer>
+</body>
+</html>
