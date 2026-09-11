@@ -100,9 +100,8 @@
       border-radius: 14px;
       padding: 16px;
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow:
-        0 16px 32px rgba(0,0,0,0.9),
-        0 0 12px rgba(0,0,0,0.8);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.9),
+                  0 0 12px rgba(0,0,0,0.8);
       margin-bottom: 16px;
     }
 
@@ -189,7 +188,6 @@
 <body>
   <div class="sidebar">
     <div class="sidebar-title">Nationwide Dispatching</div>
-
     <a href="index.html" class="sidebar-link">Home</a>
     <a href="#" id="logoutBtn" class="sidebar-link">Logout</a>
     <a href="dashboard.html" class="sidebar-link active">ELD Dashboard</a>
@@ -261,6 +259,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Driver GPS Map Panel -->
+    <div class="content">
+      <div class="panel" style="grid-column: 1 / span 2;">
+        <div class="panel-title">Driver GPS Map</div>
+        <div id="map" style="width:100%; height:400px; border-radius:12px;"></div>
+      </div>
+    </div>
+
+    <!-- Google Maps JS -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_Vl_dS0OKLKrEJ7h3mEgC9bFWgghLwgs"></script>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -406,6 +415,74 @@
         await auth.signOut();
         window.location.href = "dispatcher-login.html";
       });
+
+      // =========================
+      // DISPATCHER LIVE GPS MAP
+      // =========================
+
+      let map;
+      let driverMarkers = {};
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 39.8283, lng: -98.5795 }, // USA center
+          zoom: 4,
+          styles: [
+            { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#000000" }] },
+            { featureType: "water", stylers: [{ color: "#0e0e0e" }] },
+            { featureType: "road", stylers: [{ color: "#333333" }] }
+          ]
+        });
+      }
+
+      async function loadDriverGPS() {
+        const snap = await db.collection("drivers").get();
+
+        snap.forEach(doc => {
+          const d = doc.data();
+
+          if (!d.lat || !d.lng) return; // skip drivers without GPS yet
+
+          const pos = { lat: d.lat, lng: d.lng };
+
+          if (!driverMarkers[d.name]) {
+            // Create new marker
+            driverMarkers[d.name] = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: d.name,
+              icon: {
+                url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+              }
+            });
+
+            const info = new google.maps.InfoWindow({
+              content: `
+                <strong>${d.name}</strong><br>
+                Status: ${d.status}<br>
+                Drive Left: ${d.driveLeft} hrs<br>
+                On Duty Left: ${d.onDutyLeft} hrs<br>
+                Last Update: ${d.lastUpdate || "N/A"}
+              `
+            });
+
+            driverMarkers[d.name].addListener("click", () => {
+              info.open(map, driverMarkers[d.name]);
+            });
+
+          } else {
+            // Update existing marker
+            driverMarkers[d.name].setPosition(pos);
+          }
+        });
+      }
+
+      window.onload = () => {
+        initMap();
+        setInterval(loadDriverGPS, 5000); // update every 5 seconds
+      };
     </script>
   </div>
 </body>
