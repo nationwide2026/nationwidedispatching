@@ -483,25 +483,4 @@
             const newStatus = prompt("New status:");
 
             await updateDoc(ref, {
-              lane: newLane || "",
-              driver: newDriver || "",
-              rpm: parseFloat(newRpm || 0),
-              status: newStatus || ""
-            });
-
-            await loadData();
-          }
-        }
-
-        if (btn.classList.contains("delete-button")) {
-          const confirmDelete = confirm(`Delete this ${type}?`);
-          if (!confirmDelete) return;
-
-          await deleteDoc(doc(db, type === "driver" ? "drivers" : "loads", id));
-          await loadData();
-        }
-      });
-    </script>
-  </div>
-</body>
-</html>
+              lane: new
