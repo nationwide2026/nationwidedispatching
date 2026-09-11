@@ -79,7 +79,6 @@
       <div id="gpsStatus"></div>
     </div>
   </div>
-
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -102,7 +101,6 @@
 
     let driverName = "";
 
-    // Normalize driver names so "Driver 1", "driver1", "driver 1" all become "Driver1"
     function normalizeName(name) {
       return name.replace(/\s+/g, "").replace(/[^a-zA-Z0-9]/g, "");
     }
