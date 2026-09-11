@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Driver App | Nationwide Dispatching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h2 {
+      color: #ffd700;
+      text-align: center;
+    }
+    .panel {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #ffd700;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Driver App</h2>
+
+  <div class="panel">
+    <h3>Login</h3>
+    <input id="driverName" placeholder="Enter your driver name" />
+    <button onclick="loginDriver()">Login</button>
+  </div>
+
+  <div id="driverPanel" style="display:none;">
+    <div class="panel">
+      <h3>Your Assigned Load</h3>
+      <div id="assignedLoad">Loading...</div>
+    </div>
+
+    <div class="panel">
+      <h3>Update Status</h3>
+      <select id="driverStatus">
+        <option>DRIVING</option>
+        <option>ON DUTY</option>
+        <option>OFF DUTY</option>
+      </select>
+      <button onclick="updateStatus()">Update Status</button>
+    </div>
+
+    <div class="panel">
+      <h3>Update HOS</h3>
+      <input id="driveLeft" type="number" step="0.1" placeholder="Drive hours left" />
+      <input id="onDutyLeft" type="number" step="0.1" placeholder="On duty hours left" />
+      <button onclick="updateHOS()">Update HOS</button>
+    </div>
+
+    <div class="panel">
+      <h3>Share GPS Location</h3>
+      <button onclick="shareGPS()">Send GPS Location</button>
+      <div id="gpsStatus"></div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- Google Maps Geolocation -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_Vl_dS0OKLKrEJ7h3mEgC9bFWgghLwgs"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXNZRDMmUJXoqMsFwluElbrSICN65Kmvc",
+      authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
+      projectId: "nationwide-dispatching-7b346",
+      storageBucket: "nationwide-dispatching-7b346.appspot.com",
+      messagingSenderId: "280010805970",
+      appId: "1:280010805970:web:42989433f02939aca3930b"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let driverName = "";
+
+    async function loginDriver() {
+      driverName = document.getElementById("driverName").value.trim();
+      if (!driverName) return alert("Enter your name");
+
+      document.getElementById("driverPanel").style.display = "block";
+
+      loadAssignedLoad();
+    }
+
+    async function loadAssignedLoad() {
+      const loads = await db.collection("loads").get();
+      let assigned = "No load assigned";
+
+      loads.forEach(doc => {
+        const data = doc.data();
+        if (data.driver === driverName) {
+          assigned = `${data.id} — ${data.lane} — ${data.status}`;
+        }
+      });
+
+      document.getElementById("assignedLoad").innerText = assigned;
+    }
+
+    async function updateStatus() {
+      const status = document.getElementById("driverStatus").value;
+
+      await db.collection("drivers").doc(driverName).update({
+        status: status
+      });
+
+      alert("Status updated");
+    }
+
+    async function updateHOS() {
+      const drive = parseFloat(document.getElementById("driveLeft").value);
+      const duty = parseFloat(document.getElementById("onDutyLeft").value);
+
+      await db.collection("drivers").doc(driverName).update({
+        driveLeft: drive,
+        onDutyLeft: duty
+      });
+
+      alert("HOS updated");
+    }
+
+    function shareGPS() {
+      if (!navigator.geolocation) {
+        alert("GPS not supported");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(async pos => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        await db.collection("drivers").doc(driverName).update({
+          lat: lat,
+          lng: lng,
+          lastUpdate: new Date().toISOString()
+        });
+
+        document.getElementById("gpsStatus").innerText =
+          `GPS sent: ${lat}, ${lng}`;
+      });
+    }
+  </script>
+
+</body>
+</html>
