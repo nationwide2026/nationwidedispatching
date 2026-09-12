@@ -100,8 +100,7 @@
       border-radius: 14px;
       padding: 16px;
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.9),
-                  0 0 12px rgba(0,0,0,0.8);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.8);
       margin-bottom: 16px;
     }
 
@@ -214,21 +213,7 @@
             </thead>
             <tbody></tbody>
           </table>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Add Driver</div>
-          <form id="addDriverForm">
-            <input class="form-input" type="text" id="driverName" placeholder="Driver name" required />
-            <input class="form-input" type="text" id="driverStatus" placeholder="Status (DRIVING / OFF DUTY / ON DUTY)" required />
-            <input class="form-input" type="number" step="0.1" id="driverDriveLeft" placeholder="Drive left (hrs)" required />
-            <input class="form-input" type="number" step="0.1" id="driverOnDutyLeft" placeholder="On duty left (hrs)" required />
-            <button class="form-button" type="submit">Add Driver</button>
-          </form>
-        </div>
-      </div>
-
-      <div>
+        </div>      <div>
         <div class="panel">
           <div class="panel-title">Active Loads</div>
           <table id="loadsTable">
@@ -267,9 +252,8 @@
         <div id="map" style="width:100%; height:400px; border-radius:12px;"></div>
       </div>
     </div>
-
     <!-- Google Maps JS -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_Vl_dS0OKLKrEJ7h3mEgC9bFWgghLwgs"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_MAPS_API_KEY_HERE"></script>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -278,7 +262,7 @@
 
     <script>
       const firebaseConfig = {
-        apiKey: "AIzaSyDXNZRDMmUJXoqMsFwluElbrSICN65Kmvc",
+        apiKey: "YOUR_FIREBASE_API_KEY",
         authDomain: "nationwide-dispatching-7b346.firebaseapp.com",
         projectId: "nationwide-dispatching-7b346",
         storageBucket: "nationwide-dispatching-7b346.appspot.com",
@@ -290,7 +274,6 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
 
-      // Protect dashboard
       auth.onAuthStateChanged(user => {
         if (!user) {
           window.location.href = "dispatcher-login.html";
@@ -348,9 +331,9 @@
         });
       }
 
-      // Add driver
       document.getElementById("addDriverForm").addEventListener("submit", async e => {
         e.preventDefault();
+
         const name = driverName.value.trim();
         const status = driverStatus.value.trim();
         const driveLeft = parseFloat(driverDriveLeft.value);
@@ -366,9 +349,9 @@
         loadData();
       });
 
-      // Add load
       document.getElementById("addLoadForm").addEventListener("submit", async e => {
         e.preventDefault();
+
         const id = loadId.value.trim();
         const lane = loadLane.value.trim();
         const driver = loadDriver.value.trim();
@@ -385,7 +368,6 @@
         loadData();
       });
 
-      // Edit / delete
       document.addEventListener("click", async e => {
         const btn = e.target;
         if (!btn.dataset || !btn.dataset.id) return;
@@ -394,7 +376,8 @@
         const id = btn.dataset.id;
 
         if (btn.classList.contains("delete-button")) {
-          await db.collection(type === "driver" ? "drivers" : "loads").doc(id).delete();
+          await db.collection(type === "driver" ? "drivers" : "loads")
+            .doc(id).delete();
           loadData();
         }
 
@@ -402,30 +385,25 @@
           const newStatus = prompt("Enter new status:");
           if (!newStatus) return;
 
-          await db.collection(type === "driver" ? "drivers" : "loads").doc(id).update({
-            status: newStatus
-          });
+          await db.collection(type === "driver" ? "drivers" : "loads")
+            .doc(id).update({ status: newStatus });
 
           loadData();
         }
       });
 
-      // Logout
       document.getElementById("logoutBtn").addEventListener("click", async () => {
         await auth.signOut();
         window.location.href = "dispatcher-login.html";
       });
 
-      // =========================
-      // DISPATCHER LIVE GPS MAP
-      // =========================
-
+      // MAP + LIVE DRIVER PINS
       let map;
       let driverMarkers = {};
 
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 39.8283, lng: -98.5795 }, // USA center
+          center: { lat: 39.8283, lng: -98.5795 },
           zoom: 4,
           styles: [
             { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
@@ -437,53 +415,59 @@
         });
       }
 
-      async function loadDriverGPS() {
-        const snap = await db.collection("drivers").get();
-
-        snap.forEach(doc => {
-          const d = doc.data();
-
-          if (!d.lat || !d.lng) return; // skip drivers without GPS yet
-
-          const pos = { lat: d.lat, lng: d.lng };
-
-          if (!driverMarkers[d.name]) {
-            // Create new marker
-            driverMarkers[d.name] = new google.maps.Marker({
-              position: pos,
-              map: map,
-              title: d.name,
-              icon: {
-                url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-              }
-            });
-
-            const info = new google.maps.InfoWindow({
-              content: `
-                <strong>${d.name}</strong><br>
-                Status: ${d.status}<br>
-                Drive Left: ${d.driveLeft} hrs<br>
-                On Duty Left: ${d.onDutyLeft} hrs<br>
-                Last Update: ${d.lastUpdate || "N/A"}
-              `
-            });
-
-            driverMarkers[d.name].addListener("click", () => {
-              info.open(map, driverMarkers[d.name]);
-            });
-
-          } else {
-            // Update existing marker
-            driverMarkers[d.name].setPosition(pos);
+      function createDriverMarker(d) {
+        const marker = new google.maps.Marker({
+          position: { lat: d.lat, lng: d.lng },
+          map: map,
+          title: d.name,
+          icon: {
+            url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
           }
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `
+            <div style="font-size:14px;">
+              <strong>${d.name}</strong><br>
+              Status: ${d.status}<br>
+              Drive Left: ${d.driveLeft} hrs<br>
+              Duty Left: ${d.onDutyLeft} hrs<br>
+              Last Update: ${d.lastUpdate || "N/A"}<br>
+              Load: ${d.loadId || "None"}
+            </div>
+          `
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+
+        return marker;
+      }
+
+      function updateDriverMarker(d) {
+        if (!driverMarkers[d.name]) {
+          driverMarkers[d.name] = createDriverMarker(d);
+        }
+
+        driverMarkers[d.name].setPosition({
+          lat: d.lat,
+          lng: d.lng
         });
       }
 
-      window.onload = () => {
-        initMap();
-        setInterval(loadDriverGPS, 5000); // update every 5 seconds
-      };
+      db.collection("drivers").onSnapshot(snapshot => {
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          if (d.lat != null && d.lng != null) {
+            updateDriverMarker(d);
+          }
+        });
+      });
+
+      window.onload = initMap;
     </script>
   </div>
 </body>
-</html> 
+</html>
+
