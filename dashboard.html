@@ -100,8 +100,7 @@
       border-radius: 14px;
       padding: 16px;
       border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.9),
-                  0 0 12px rgba(0,0,0,0.8);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.8);
       margin-bottom: 16px;
     }
 
@@ -182,6 +181,22 @@
       background: rgba(255,107,107,0.2);
       color: var(--danger);
     }
+
+    /* Load Progress Bar */
+    .progressBar {
+      width: 100%;
+      height: 10px;
+      background: #333;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .progressFill {
+      height: 10px;
+      background: #ffd700;
+      width: 0%;
+      border-radius: 5px;
+    }
   </style>
 </head>
 
@@ -244,6 +259,11 @@
             </thead>
             <tbody></tbody>
           </table>
+
+          <!-- Progress Bar -->
+          <div class="progressBar">
+            <div class="progressFill" id="progressFill"></div>
+          </div>
         </div>
 
         <div class="panel">
@@ -259,7 +279,6 @@
         </div>
       </div>
     </div>
-
     <!-- Driver GPS Map Panel -->
     <div class="content">
       <div class="panel" style="grid-column: 1 / span 2;">
@@ -345,12 +364,28 @@
             </td>
           `;
           tbody.appendChild(tr);
+
+          // Update progress bar
+          if (l.pickupTime && l.deliveryTime) {
+            document.getElementById("progressFill").style.width =
+              calculateProgress(l) + "%";
+          }
         });
+      }
+
+      function calculateProgress(load) {
+        const start = new Date(load.pickupTime).getTime();
+        const end = new Date(load.deliveryTime).getTime();
+        const now = Date.now();
+
+        const percent = ((now - start) / (end - start)) * 100;
+        return Math.min(Math.max(percent, 0), 100);
       }
 
       // Add driver
       document.getElementById("addDriverForm").addEventListener("submit", async e => {
         e.preventDefault();
+
         const name = driverName.value.trim();
         const status = driverStatus.value.trim();
         const driveLeft = parseFloat(driverDriveLeft.value);
@@ -369,6 +404,7 @@
       // Add load
       document.getElementById("addLoadForm").addEventListener("submit", async e => {
         e.preventDefault();
+
         const id = loadId.value.trim();
         const lane = loadLane.value.trim();
         const driver = loadDriver.value.trim();
@@ -394,7 +430,8 @@
         const id = btn.dataset.id;
 
         if (btn.classList.contains("delete-button")) {
-          await db.collection(type === "driver" ? "drivers" : "loads").doc(id).delete();
+          await db.collection(type === "driver" ? "drivers" : "loads")
+            .doc(id).delete();
           loadData();
         }
 
@@ -402,9 +439,8 @@
           const newStatus = prompt("Enter new status:");
           if (!newStatus) return;
 
-          await db.collection(type === "driver" ? "drivers" : "loads").doc(id).update({
-            status: newStatus
-          });
+          await db.collection(type === "driver" ? "drivers" : "loads")
+            .doc(id).update({ status: newStatus });
 
           loadData();
         }
@@ -425,7 +461,7 @@
 
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: 39.8283, lng: -98.5795 }, // USA center
+          center: { lat: 39.8283, lng: -98.5795 },
           zoom: 4,
           styles: [
             { elementType: "geometry", stylers: [{ color: "#1a1a1a" }] },
@@ -437,53 +473,46 @@
         });
       }
 
-      async function loadDriverGPS() {
-        const snap = await db.collection("drivers").get();
-
-        snap.forEach(doc => {
-          const d = doc.data();
-
-          if (!d.lat || !d.lng) return; // skip drivers without GPS yet
-
-          const pos = { lat: d.lat, lng: d.lng };
-
-          if (!driverMarkers[d.name]) {
-            // Create new marker
-            driverMarkers[d.name] = new google.maps.Marker({
-              position: pos,
-              map: map,
-              title: d.name,
-              icon: {
-                url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-              }
-            });
-
-            const info = new google.maps.InfoWindow({
-              content: `
-                <strong>${d.name}</strong><br>
-                Status: ${d.status}<br>
-                Drive Left: ${d.driveLeft} hrs<br>
-                On Duty Left: ${d.onDutyLeft} hrs<br>
-                Last Update: ${d.lastUpdate || "N/A"}
-              `
-            });
-
-            driverMarkers[d.name].addListener("click", () => {
-              info.open(map, driverMarkers[d.name]);
-            });
-
-          } else {
-            // Update existing marker
-            driverMarkers[d.name].setPosition(pos);
+      function createDriverMarker(d) {
+        const marker = new google.maps.Marker({
+          position: { lat: d.lat, lng: d.lng },
+          map: map,
+          title: d.name,
+          icon: {
+            url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
           }
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `
+            <div style="font-size:14px;">
+              <strong>${d.name}</strong><br>
+              Status: ${d.status}<br>
+              Drive Left: ${d.driveLeft} hrs<br>
+              Duty Left: ${d.onDutyLeft} hrs<br>
+              Last Update: ${d.lastUpdate || "N/A"}<br>
+              Load: ${d.loadId || "None"}
+            </div>
+          `
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+
+        return marker;
+      }
+
+      function updateDriverMarker(d) {
+        if (!driverMarkers[d.name]) {
+          driverMarkers[d.name] = createDriverMarker(d);
+        }
+
+        driverMarkers[d.name].setPosition({
+          lat: d.lat,
+          lng: d.lng
         });
       }
 
-      window.onload = () => {
-        initMap();
-        setInterval(loadDriverGPS, 5000); // update every 5 seconds
-      };
-    </script>
-  </div>
-</body>
-</html> 
+      db.collection("drivers").onSnapshot(snapshot => {
+        snapshot.forEach(doc
