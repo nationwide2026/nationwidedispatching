@@ -2,403 +2,169 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Nationwide Dispatching | Carrier-First Truck Dispatch Company</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nationwide Dispatching</title>
 
   <style>
-    :root {
-      --bg: #050505;
-      --bg-alt: #0b0b0b;
-      --gold: #ffd700;
-      --gold-soft: #e6c45a;
-      --text: #f5f5f5;
-      --muted: #b0b0b0;
-      --accent: #1f2933;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
-      color: var(--text);
-    }
-
-    .glow-bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(255, 215, 0, 0.18) 0, transparent 55%),
-        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.08) 0, transparent 55%),
-        radial-gradient(circle at 50% 100%, rgba(255, 215, 0, 0.12) 0, transparent 60%);
-      z-index: -1;
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #000;
+      color: #fff;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255, 215, 0, 0.35);
+      background: #0b0b0b;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,215,0,0.25);
     }
 
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--gold) 0%, #b8860b 40%, #111 100%);
-      box-shadow:
-        0 0 18px rgba(255, 215, 0, 0.9),
-        inset 0 0 10px rgba(0, 0, 0, 0.9);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-size: 20px;
-      font-weight: 600;
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffd700;
+      text-transform: uppercase;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .brand-sub {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
     }
 
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
+      margin-top: 10px;
     }
 
     nav a {
-      font-size: 14px;
-      color: var(--text);
+      color: #fff;
       text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid transparent;
+      margin-right: 20px;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 6px;
       transition: 0.2s;
     }
 
     nav a:hover {
-      border-color: rgba(255, 215, 0, 0.7);
-      color: var(--gold);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-    }
-
-    .nav-cta {
-      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
-      color: #000;
-      font-weight: 600;
-      box-shadow:
-        0 10px 18px rgba(0, 0, 0, 0.9),
-        0 0 16px rgba(255, 215, 0, 0.8);
-    }
-
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px 60px;
+      background: #111;
+      color: #ffd700;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 30px;
-      align-items: center;
-      margin-bottom: 60px;
+      padding: 60px 20px;
+      text-align: center;
+      background: radial-gradient(circle at top, #111 0%, #000 55%, #000 100%);
     }
 
-    .hero-left h1 {
-      font-size: 40px;
-      line-height: 1.1;
-      margin-bottom: 16px;
-      color: var(--gold);
-      text-shadow:
-        0 0 18px rgba(255, 215, 0, 0.9),
-        0 0 6px rgba(255, 255, 255, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .hero-left p {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 520px;
-      line-height: 1.6;
+    .hero-title {
+      font-size: 36px;
+      color: #ffd700;
       margin-bottom: 20px;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .badge {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 215, 0, 0.4);
-      color: var(--gold-soft);
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-size: 14px;
-      text-decoration: none;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-primary {
-      background: radial-gradient(circle at top, var(--gold) 0%, #e6c45a 40%, #8b6508 100%);
-      color: #000;
-      font-weight: 600;
-      box-shadow:
-        0 10px 18px rgba(0, 0, 0, 0.9),
-        0 0 16px rgba(255, 215, 0, 0.8);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 14px 24px rgba(0, 0, 0, 0.95),
-        0 0 20px rgba(255, 215, 0, 1);
-    }
-
-    .btn-outline {
-      border-color: rgba(255, 215, 0, 0.6);
-      color: var(--gold-soft);
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 215, 0, 0.08);
-      border-color: rgba(255, 215, 0, 0.9);
-    }
-
-    .hero-meta {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .hero-right {
-      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
-      border-radius: 18px;
-      padding: 18px 18px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow:
-        0 18px 32px rgba(0, 0, 0, 0.9),
-        0 0 18px rgba(0, 0, 0, 0.9);
-    }
-
-    .hero-right h2 {
-      font-size: 16px;
-      margin-bottom: 8px;
-      color: var(--gold);
       text-transform: uppercase;
       letter-spacing: 0.12em;
     }
 
-    .hero-right p {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .stat {
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 4px;
-    }
-
-    .stat-value {
-      font-size: 16px;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .hero-contact {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .hero-contact strong {
-      color: var(--gold-soft);
+    .hero-subtitle {
+      font-size: 18px;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .section {
-      margin-bottom: 50px;
-    }
-
-    .section-header {
-      margin-bottom: 18px;
-    }
-
-    .section-kicker {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      margin-bottom: 6px;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .section-title {
       font-size: 22px;
-      color: var(--gold);
+      color: #ffd700;
+      margin-bottom: 20px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 6px;
     }
 
-    .section-sub {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 620px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: radial-gradient(circle at top, #151515 0%, #050505 60%, #020202 100%);
-      border-radius: 14px;
-      padding: 16px 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow:
-        0 16px 32px rgba(0, 0, 0, 0.9),
-        0 0 12px rgba(0, 0, 0, 0.8);
-    }
-
-    .card h3 {
-      font-size: 16px;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .card p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .card-link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--gold-soft);
-      text-decoration: none;
-    }
-
-    .card-link:hover {
-      text-decoration: underline;
+    .section p {
+      font-size: 15px;
+      color: #ddd;
+      line-height: 1.6;
     }
 
     footer {
-      border-top: 1px solid rgba(255, 215, 0, 0.25);
+      background: #0b0b0b;
       padding: 20px;
-      font-size: 12px;
-      color: var(--muted);
       text-align: center;
-      background: rgba(0, 0, 0, 0.9);
+      border-top: 1px solid rgba(255,215,0,0.25);
+      margin-top: 40px;
     }
 
-    footer strong {
-      color: var(--gold-soft);
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        justify-content: flex-start;
-      }
-      .hero-left h1 {
-        font-size: 30px;
-      }
+    footer p {
+      color: #aaa;
+      font-size: 13px;
     }
   </style>
 </head>
-<body>
-  <div class="glow-bg"></div>
 
+<body>
+  <header>
+    <div class="logo">Nationwide Dispatching</div>
+    <nav>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="dispatcher-login.html" class="nav-link">Dispatcher Login</a>
+      <a href="driver-login.html" class="nav-link">Driver Login</a>
+  </header>
+
+  <div class="hero">
+    <div class="hero-title">Nationwide Dispatching</div>
+    <div class="hero-subtitle">
+      Professional dispatching services with real-time GPS tracking, ELD monitoring,
+      and load management for carriers nationwide.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Our Services</div>
+    <p>
+      We provide full-service dispatching for carriers across the United States.
+      Our platform includes real-time GPS tracking, ELD monitoring, load assignment,
+      RPM calculations, and automated driver status updates.
+    </p>
+    <p>
+      Whether you're a single owner-operator or a fleet with multiple drivers,
+      Nationwide Dispatching gives you the tools to stay organized and efficient.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Driver Tools</div>
+    <p>
+      Drivers can log in to update their status, view assigned loads, and automatically
+      send GPS location updates to dispatch. Our mobile-friendly interface ensures
+      drivers stay connected on the road.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Dispatcher Tools</div>
+    <p>
+      Dispatchers can monitor all drivers in real time, assign loads, update RPM,
+      track delivery progress, and manage HOS compliance. The dashboard provides
+      a complete overview of your fleet.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Why Choose Us?</div>
+    <p>
+      Our dispatching system is built for speed, reliability, and accuracy.
+      With integrated GPS tracking and automated updates, you always know where
+      your drivers are and how your loads are progressing.
+    </p>
+  </div>
+
+  <footer>
+    <p>© 2026 Nationwide Dispatching — All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
   <header>
     <div class="nav-inner">
       <div class="brand">
@@ -508,6 +274,8 @@
           <p>
             We plan around hours-of-service, not against them. Duty status and log history inform every dispatch decision.
           </p>
+
+          <!-- ⭐ FIXED LINK BELOW ⭐ -->
           <a class="card-link" href="dashboard.html">Preview dashboard →</a>
         </div>
       </div>
@@ -557,3 +325,4 @@
   </footer>
 </body>
 </html>
+
